@@ -1,0 +1,23 @@
+name: Verify
+
+on: [push]
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+      - name: Add auth for private NPM packages
+        run: echo "//npm.pkg.github.com/:_authToken=${{ github.token }}" >> ~/.npmrc
+        shell: bash
+      - run: npm ci
+      - run: npm run verify
