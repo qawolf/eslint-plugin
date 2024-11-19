@@ -35,6 +35,7 @@
     "eslint": "^8.0.0"
   },
   "prettier": {},
+  "repository": "https://github.com/qawolf/eslint-plugin",
   "scripts": {
     "build": "rm -rf dist && NODE_ENV=production tsc",
     "build:watch": "npm run build -- --watch",
