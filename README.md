@@ -1,6 +1,14 @@
 # QA Wolf eslint plugin and configuration
 
-1. To add it to a project, create a .eslintrc.js file:
+Use this in your project:
+
+1. Install the plugin and ESLint:
+
+   ```sh
+   npm install --save-dev @qawolf/eslint-plugin eslint@8
+   ```
+
+2. Create an .eslintrc.js file:
 
    ```js
    module.exports = {
@@ -9,12 +17,15 @@
    };
    ```
 
-2. Add a linting script to your package.json:
+3. Add linting scripts to your package.json:
 
    ```json
    {
      "scripts": {
-       "lint": "eslint ."
+       "lint": "eslint .",
+       "lint:thorough": "THOROUGH_LINT=true eslint ."
      }
    }
    ```
+
+   You probably want to run the thorough one in CI.
