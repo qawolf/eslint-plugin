@@ -39,6 +39,7 @@ export const main = {
   },
   plugins: [
     "@denis-sokolov",
+    "@qawolf/eslint-plugin-rulesdir",
     "@typescript-eslint",
     "github",
     "jest",
@@ -48,7 +49,6 @@ export const main = {
     "promise",
     "react-compiler",
     "redos",
-    "@qawolf/eslint-plugin-rulesdir",
   ],
   rules: {
     ...disabledRulesFromPresets,
