@@ -29,3 +29,9 @@ Use this in your project:
    ```
 
    You probably want to run the thorough one in CI.
+
+---
+
+[QA Wolf](https://www.qawolf.com/) is a hybrid platform & service that helps software teams ship better software faster by taking QA completely off their plate.
+
+![QA Wolf logo](./docs/qawolf.png)
