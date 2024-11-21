@@ -48,5 +48,5 @@
     "tsc:check": "tsc --noEmit",
     "verify": "npm run tsc:check && npm run lint && npm run test"
   },
-  "version": "2.0.1"
+  "version": "2.0.2"
 }
