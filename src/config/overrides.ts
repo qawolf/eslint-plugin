@@ -42,21 +42,6 @@ export const overrides = [
     },
   },
   {
-    files: ["*.js", "*.mjs"],
-    rules: {
-      // .js files are difficult to type and ignoring errors is often the best option
-      "@typescript-eslint/ban-ts-comment": "off",
-
-      // Config files do not get packaged
-      "node/no-unpublished-import": "off",
-
-      // Config files run Node.js and use CommonJS often
-      "@typescript-eslint/no-var-requires": "off",
-
-      "node/no-unpublished-require": "off",
-    },
-  },
-  {
     files: ["jest.config.ts"],
     rules: {
       // Jest config API requires us to use default exports
@@ -66,12 +51,6 @@ export const overrides = [
           ({ selector }) => selector !== "ExportDefaultDeclaration",
         ),
       ],
-    },
-  },
-  {
-    files: ["**/fixtures/*"],
-    rules: {
-      "@qawolf/max-lines": "off",
     },
   },
 ] satisfies Linter.Config["overrides"];
