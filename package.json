@@ -26,6 +26,7 @@
     "ava": "^6.2.0",
     "eslint": "^8.57.0",
     "prettier": "^3.1.1",
+    "publint": "^0.2.12",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   },
@@ -39,7 +40,7 @@
   "scripts": {
     "build": "rm -rf dist && NODE_ENV=production tsc",
     "build:watch": "npm run build -- --watch",
-    "lint": "cycle-import-scan . && prettier --check --log-level=warn .",
+    "lint": "cycle-import-scan . && prettier --check --log-level=warn . && publint --strict",
     "lint:fix": "cycle-import-scan . && prettier --log-level=warn --write .",
     "prepare": "npm run build",
     "prepublishOnly": "npm run verify && npm run build",
