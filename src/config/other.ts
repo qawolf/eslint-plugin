@@ -13,8 +13,7 @@ export const otherRules = {
   "@qawolf/restrict-names": "error",
   "@qawolf/restrict-stop-propagation": "error",
 
-  // “warn” instead of “error” because of too many existing uses
-  "@qawolf/max-lines": "warn",
+  "@qawolf/max-lines": "error",
 
   "@typescript-eslint/no-non-null-assertion": "error",
 
