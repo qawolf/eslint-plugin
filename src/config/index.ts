@@ -66,7 +66,24 @@ export const main = {
       typescript: true,
     },
     react: {
-      version: "detect",
+      version: (function () {
+        try {
+          return require("react/package.json").version;
+        } catch (e) {
+          // If no React, silence the warning about missing version
+          return "16";
+        }
+      })(),
+    },
+    jest: {
+      version: (function () {
+        try {
+          return require("jest/package.json").version;
+        } catch (e) {
+          // If no Jest, silence the warning about missing version
+          return 27;
+        }
+      })(),
     },
   },
 } satisfies Linter.Config;
