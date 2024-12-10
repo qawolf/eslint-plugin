@@ -12,7 +12,7 @@
     "eslint-plugin-jest": "^28.9.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-perfectionist": "^4.2.0",
-    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-react-compiler": "^19.0.0-beta-63b359f-20241101",
     "eslint-plugin-redos": "^4.4.5",
     "tsconfig-paths": "^4.2.0"
