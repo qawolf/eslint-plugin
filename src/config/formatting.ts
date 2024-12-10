@@ -20,6 +20,7 @@ export const formattingRules = {
   "perfectionist/sort-array-includes": ["error", { type: "natural" }],
   "perfectionist/sort-classes": ["error", { type: "natural" }],
   "perfectionist/sort-enums": ["error", { type: "natural" }],
+  "perfectionist/sort-decorators": ["error", { type: "natural" }],
   "perfectionist/sort-exports": [
     "error",
     {
