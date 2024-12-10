@@ -30,8 +30,8 @@ export const formattingRules = {
     "error",
     {
       customGroups: {
-        type: { "qawolf-type": ["@qawolf/*"] },
-        value: { qawolf: ["@qawolf/*"] },
+        type: { "qawolf-type": ["^@qawolf/"] },
+        value: { qawolf: ["^@qawolf/"] },
       },
       groups: [
         ["side-effect", "side-effect-style"],
@@ -43,7 +43,7 @@ export const formattingRules = {
         "object",
         "unknown",
       ],
-      internalPattern: ["@/**", "app/**"],
+      internalPattern: ["^@/", "^app/"],
       sortSideEffects: true,
       type: "natural",
     },
