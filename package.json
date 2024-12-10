@@ -2,9 +2,9 @@
   "dependencies": {
     "@denis-sokolov/eslint-plugin": "^16.0.0",
     "@qawolf/eslint-plugin-rulesdir": "^0.2.2-3",
-    "@typescript-eslint/eslint-plugin": "^8.8.1",
-    "@typescript-eslint/parser": "^8.8.1",
-    "@typescript-eslint/utils": "^8.8.1",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "@typescript-eslint/utils": "^8.18.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-github": "^5.0.2",
