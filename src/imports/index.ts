@@ -1,4 +1,4 @@
-import { defineRule } from "../eslint";
+import { defineRule, getSpecifierName } from "../eslint";
 
 import { type CheckResult, type ImportDetails } from "./types";
 
@@ -30,20 +30,22 @@ export function defineImportsRule(f: (details: ImportDetails) => CheckResult) {
         if (!node.source) return;
         const defaultExport = node.specifiers.find(
           // “local” here seems a little confusing, but is correct
-          (specifier) => specifier.local.name === "default",
+          (specifier) => getSpecifierName(specifier.local) === "default",
         );
         const names = node.specifiers
-          .map((specifier) => specifier.exported?.name)
+          .map((specifier) => getSpecifierName(specifier.exported))
           .filter(Boolean);
         const typeNames =
           node.exportKind === "type"
             ? names
             : node.specifiers
                 .filter((specifier) => specifier.exportKind === "type")
-                .map((specifier) => specifier.exported?.name);
+                .map((specifier) => getSpecifierName(specifier.exported));
 
         check({
-          defaultName: defaultExport?.exported.name,
+          defaultName: defaultExport
+            ? getSpecifierName(defaultExport.exported)
+            : undefined,
           names,
           node,
           typeNames,
@@ -52,7 +54,8 @@ export function defineImportsRule(f: (details: ImportDetails) => CheckResult) {
       ImportDeclaration(node) {
         const names = node.specifiers
           .map(
-            (specifier) => "imported" in specifier && specifier.imported.name,
+            (specifier) =>
+              "imported" in specifier && getSpecifierName(specifier.imported),
           )
           .filter(Boolean);
         const typeNames =
@@ -66,7 +69,8 @@ export function defineImportsRule(f: (details: ImportDetails) => CheckResult) {
                 )
                 .map(
                   (specifier) =>
-                    "imported" in specifier && specifier.imported.name,
+                    "imported" in specifier &&
+                    getSpecifierName(specifier.imported),
                 )
                 .filter(Boolean);
         const defaultImport = node.specifiers.find(

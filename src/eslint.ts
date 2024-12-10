@@ -42,3 +42,8 @@ export function defineRule(
     },
   };
 }
+
+// Generalize for string literals in import/export statements of ES2022
+export function getSpecifierName(node: AST.StringLiteral | AST.Identifier) {
+  return "name" in node ? node.name : node.value;
+}

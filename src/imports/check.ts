@@ -2,7 +2,7 @@ import path from "path";
 
 import { loadConfig, createMatchPath } from "tsconfig-paths";
 
-import { type AST, type RuleContext } from "../eslint";
+import { type AST, type RuleContext, getSpecifierName } from "../eslint";
 
 import {
   getProjectDirectory,
@@ -123,11 +123,11 @@ export function makeCheckingFunction({
           ? node.specifiers.filter(
               (specifier) =>
                 "imported" in specifier &&
-                names.includes(specifier.imported.name),
+                names.includes(getSpecifierName(specifier.imported)),
             )
           : node.type === "ExportNamedDeclaration"
             ? node.specifiers.filter((specifier) =>
-                names.includes(specifier.exported.name),
+                names.includes(getSpecifierName(specifier.exported)),
               )
             : [];
       if (specifiers.length === 0) {
