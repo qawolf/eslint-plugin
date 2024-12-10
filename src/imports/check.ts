@@ -29,7 +29,7 @@ export function makeCheckingFunction({
     config.resultType === "success"
       ? createMatchPath(config.absoluteBaseUrl, config.paths)
       : undefined;
-  if (!matchTypescriptPaths) {
+  if (!matchTypescriptPaths && importingPath.match(/\.tsx?/)) {
     console.warn(
       `Could not find tsconfig.json for ${importingPath}, TypeScript paths will not be resolved.`,
     );
