@@ -28,7 +28,9 @@ export default defineImportsRule(function (details) {
   const { imported } = details;
   if (imported.type !== "relative") return { allowed: true };
 
-  const prefix = findCommonPrefix(imported.module, details.importing.module);
+  const prefix = findCommonPrefix(imported.module, details.importing.module)
+    // Drop the last segment, which can be the partial directory name.
+    .replace(/(?<=\/|^)[^/]+$/, "");
   const cwd = process.cwd();
   const them = getTopDir(imported.module.substring(prefix.length));
   const us = getTopDir(details.importing.module.substring(prefix.length));
