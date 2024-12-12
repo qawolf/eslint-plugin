@@ -34,6 +34,7 @@ export default defineImportsRule(function (details) {
   const cwd = process.cwd();
   const them = getTopDir(imported.module.substring(prefix.length));
   const us = getTopDir(details.importing.module.substring(prefix.length));
+  if (them === us) return { allowed: true };
 
   const paths = [
     cwd + "/" + prefix + ".imports.ts",
