@@ -18,8 +18,13 @@ export default defineRule(function (context) {
       if (!methodNames.includes(fieldName)) return;
 
       context.report({
-        message:
-          "Avoid stopPropagation. Instead, handle this at the higher level where something reacts to an event that it shouldn’t react to. Perhaps it needs a conditional? Another common path forward is to replace the generic handler at the higher level with a forwardClick() to a smaller nested element.",
+        message: [
+          "stopPropagation is always a hack! stopPropagation lies to the rest of the code to indirectly secretly change the behavior of some code far away from yours.",
+          "",
+          "If you’re trying to prevent a click handler at a higher level, instead consider to handle it at the higher level in the first place, and use forwardClick to send it back down.",
+          "If you’re trying to prevent a hotkey handler at a higher level, use hotkey tooling that allows to solve conflicts between hotkeys in a smarter way.",
+          "If you have some other event you do not want to be processed at the higher level, then add a conditional in your code at that higher level. After all, if it’s not supposed to be processed unconditionally, then that event handler should not be unconditional.",
+        ].join("\n"),
         node: property,
       });
     },
