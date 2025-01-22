@@ -1,6 +1,7 @@
 import { type RuleDefinition } from "../eslint";
 
 import importsConfig from "./imports-config";
+import importsPrefix from "./imports-prefix";
 import maxLines from "./max-lines";
 import noUtils from "./no-utils";
 import restrictNames from "./restrict-names";
@@ -10,6 +11,7 @@ import restrictStopPropagation from "./restrict-stop-propagation";
 
 export const rules = {
   "imports-config": importsConfig,
+  "imports-prefix": importsPrefix,
   "max-lines": maxLines,
   "no-utils": noUtils,
   "restrict-names": restrictNames,

@@ -32,9 +32,22 @@ Use this in your project:
 
 ## Configure imports
 
-An important tool of maintaining architecture is restricting which parts of your codebase can depend on which other parts of your codebase. Create `.imports.js/ts` files anywhere in your codebase to configure how the code in those directories needs to be imported.
+Create `.imports.js/ts` files anywhere in your codebase to configure how the code in those directories needs to be imported.
 
-Export a `whitelist` variable to define which subdirectories can depend on which other subdirectories:
+If the directory in question contains somewhat independent code modules underneath, export an `absoluteImportPrefix` variable to ensure that the subdirectories are not imported with relative paths:
+
+```ts
+// At the top level
+// This path is something you already have configured in tsconfig paths,
+// this plugin only rewrites the files, it does not touch your build/run configuration.
+export const absoluteImportPrefix = "myapp/";
+
+// Anywhere deeper in the app a shorthand is available,
+// it will combine the top-level prefix with the path to the directory:
+export const absoluteImportPrefix = true;
+```
+
+An important tool of maintaining architecture is restricting which parts of your codebase can depend on which other parts of your codebase. Export a `whitelist` variable to define which subdirectories can depend on which other subdirectories:
 
 ```ts
 export const whitelist = {

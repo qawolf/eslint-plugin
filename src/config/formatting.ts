@@ -2,6 +2,7 @@ import type { Linter } from "eslint";
 
 export const formattingRules = {
   "@qawolf/restrict-new-error": "error",
+  "@qawolf/imports-prefix": "error",
 
   "@typescript-eslint/camelcase": "off",
   // Also see import/consistent-type-specifier-style: they do similar, but slightly different things
