@@ -2,15 +2,15 @@ import path from "path";
 
 import { loadConfig, createMatchPath } from "tsconfig-paths";
 
-import { type AST, type RuleContext, getSpecifierName } from "../eslint";
+import { type AST, type RuleContext, getSpecifierName } from "../../eslint";
 
 import {
   getProjectDirectory,
   isPathIndex,
   moduleFromContext,
   moduleFromPath,
-} from "./path";
-import { type CheckResult, type ImportDetails } from "./types";
+} from "../path";
+import { type CheckResult, type ImportDetails } from "../types";
 
 type CheckFunction = (details: ImportDetails) => CheckResult;
 
