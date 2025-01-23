@@ -2,12 +2,6 @@ import { existsSync } from "fs";
 
 import { defineImportsRule } from "../imports";
 
-function findCommonPrefix(a: string, b: string): string {
-  let i = 0;
-  while (i < a.length && i < b.length && a[i] === b[i]) i++;
-  return a.slice(0, i);
-}
-
 function getTopDir(path: string) {
   return path.split("/")[0] ?? path;
 }
@@ -28,17 +22,17 @@ export default defineImportsRule(function (details) {
   const { imported } = details;
   if (imported.type !== "relative") return { allowed: true };
 
-  const prefix = findCommonPrefix(imported.module, details.importing.module)
-    // Drop the last segment, which can be the partial directory name.
-    .replace(/(?<=\/|^)[^/]+$/, "");
+  const { boundaryPrefix } = imported;
   const cwd = process.cwd();
-  const them = getTopDir(imported.module.substring(prefix.length));
-  const us = getTopDir(details.importing.module.substring(prefix.length));
+  const them = getTopDir(imported.module.substring(boundaryPrefix.length));
+  const us = getTopDir(
+    details.importing.module.substring(boundaryPrefix.length),
+  );
   if (them === us) return { allowed: true };
 
   const paths = [
-    cwd + "/" + prefix + ".imports.ts",
-    cwd + "/" + prefix + ".imports.js",
+    cwd + "/" + boundaryPrefix + ".imports.ts",
+    cwd + "/" + boundaryPrefix + ".imports.js",
   ];
   for (const path of paths) {
     if (!existsSync(path)) continue;
@@ -52,7 +46,7 @@ export default defineImportsRule(function (details) {
     if (!whitelistDeFacto.includes(them)) {
       return {
         allowed: false,
-        message: `Importing from ${prefix}${them} is not allowed in ${prefix}${us}, check ${path.replace(cwd + "/", "")}.`,
+        message: `Importing from ${boundaryPrefix}${them} is not allowed in ${boundaryPrefix}${us}, check ${path.replace(cwd + "/", "")}.`,
       };
     }
   }
