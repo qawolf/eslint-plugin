@@ -1,3 +1,7 @@
+# 6.0.0
+
+- Breaking: added imports-prefix rule, now will be rewriting some import paths by default, and even more if you configure absoluteImportPrefix.
+
 # 5.0.0
 
 - Breaking: added and enabled no-utils rule.
