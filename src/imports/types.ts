@@ -32,7 +32,13 @@ export type CheckResult =
 
 export type ImportDetails = {
   imported: { verbatim: string } & (
-    | { type: "relative"; module: string; withTypeScriptAlias: boolean }
+    | {
+        boundaryModule: string;
+        boundaryPrefix: string;
+        type: "relative";
+        module: string;
+        withTypeScriptAlias: boolean;
+      }
     | { type: "other" }
   );
   importing: {

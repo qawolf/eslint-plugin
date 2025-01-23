@@ -3,6 +3,7 @@ import path from "path";
 import { loadConfig, createMatchPath } from "tsconfig-paths";
 
 import { type AST, type RuleContext, getSpecifierName } from "../../eslint";
+import { findBoundary } from "../modules";
 
 import {
   getProjectDirectory,
@@ -61,7 +62,10 @@ export function makeCheckingFunction({
           path: resolvedPath,
           projectDirectory,
         });
+        const boundaryModule = findBoundary(importingModule, importedModule);
         return {
+          boundaryModule,
+          boundaryPrefix: boundaryModule ? boundaryModule + "/" : "",
           module: importedModule,
           type: "relative",
           verbatim,
@@ -72,9 +76,16 @@ export function makeCheckingFunction({
       if (matchTypescriptPaths) {
         const matchedPath = matchTypescriptPaths(verbatim);
         if (matchedPath?.startsWith(projectDirectory)) {
+          const module = moduleFromPath({
+            path: matchedPath,
+            projectDirectory,
+          });
+          const boundaryModule = findBoundary(importingModule, module);
           return {
+            boundaryModule,
+            boundaryPrefix: boundaryModule ? boundaryModule + "/" : "",
             type: "relative",
-            module: moduleFromPath({ path: matchedPath, projectDirectory }),
+            module,
             verbatim,
             withTypeScriptAlias: true,
           };
