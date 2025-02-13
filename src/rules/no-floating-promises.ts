@@ -1,13 +1,10 @@
-import { reword } from "@denis-sokolov/eslint-plugin";
-import { builtinRules } from "eslint/use-at-your-own-risk";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
 
-const baseRule = builtinRules.get("no-floating-promises");
-const rule = reword(
-  baseRule,
-  [
-    "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
-    "If you’re using `useEffect`, try some helper function like `useAsyncEffectAndCatch`.",
-  ].join(" "),
-);
+const baseRule = tsPlugin.rules["no-floating-promises"];
 
-export default rule;
+if (!baseRule) throw Error("no-floating-promises is not available");
+
+baseRule.meta.messages.floatingVoid +=
+  " If you’re using `useEffect`, try some helper function like `useAsyncEffectAndCatch`.";
+
+export default baseRule!;
