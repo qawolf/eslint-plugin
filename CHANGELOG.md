@@ -1,3 +1,7 @@
+# 7.0.0
+
+- Breaking: @typescript-eslint/no-floating-promises rule has been renamed to @qawolf/no-floating-promises
+
 # 6.0.0
 
 - Breaking: added imports-prefix rule, now will be rewriting some import paths by default, and even more if you configure absoluteImportPrefix.
