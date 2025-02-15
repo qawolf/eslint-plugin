@@ -4,6 +4,7 @@ import importsConfig from "./imports-config";
 import importsConfigValid from "./imports-config-valid";
 import importsPrefix from "./imports-prefix";
 import maxLines from "./max-lines";
+import noFloatingPromises from "./no-floating-promises";
 import noUtils from "./no-utils";
 import restrictNames from "./restrict-names";
 import restrictNewError from "./restrict-new-error";
@@ -20,4 +21,5 @@ export const rules = {
   "restrict-new-error": restrictNewError,
   "restrict-react-namespace": restrictReactNamespace,
   "restrict-stop-propagation": restrictStopPropagation,
+  "no-floating-promises": noFloatingPromises,
 } satisfies Record<string, RuleDefinition>;
