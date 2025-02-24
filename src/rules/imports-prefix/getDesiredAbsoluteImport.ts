@@ -15,7 +15,12 @@ function getAbsoluteImportPrefixForDir(
     return pref + basename(dir) + "/";
   }
 
-  const paths = [dir + "/.imports.ts", dir + "/.imports.js"];
+  const paths = [
+    dir + "/.imports.ts",
+    dir + "/.imports.js",
+    dir + "/.imports.cts",
+    dir + "/.imports.cjs",
+  ];
   for (const path of paths) {
     if (!existsSync(path)) continue;
     // eslint-disable-next-line @typescript-eslint/no-var-requires -- ESLint does not support async rules, we must use a sync require. Under the hood this file runs in CommonJS anyway.

@@ -32,7 +32,7 @@ Use this in your project:
 
 ## Configure imports
 
-Create `.imports.js/ts` files anywhere in your codebase to configure how the code in those directories needs to be imported.
+Create `.imports.js/ts/cjs/cts` files anywhere in your codebase to configure how the code in those directories needs to be imported. If using this in an ESM project (`type` is `"module"` in `package.json`), then the extensions must be `.cjs` or `.cts`.
 
 If the directory in question contains somewhat independent code modules underneath, export an `absoluteImportPrefix` variable to ensure that the subdirectories are not imported with relative paths:
 
