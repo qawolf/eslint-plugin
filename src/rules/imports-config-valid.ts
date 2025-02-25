@@ -5,7 +5,9 @@ import { readdirSync } from "fs";
 export default defineRule(function (context) {
   const isConfig =
     context.physicalFilename.endsWith("/.imports.js") ||
-    context.physicalFilename.endsWith("/.imports.ts");
+    context.physicalFilename.endsWith("/.imports.ts") ||
+    context.physicalFilename.endsWith("/.imports.cjs") ||
+    context.physicalFilename.endsWith("/.imports.cts");
   if (!isConfig) return {};
   const directory = dirname(context.physicalFilename);
 

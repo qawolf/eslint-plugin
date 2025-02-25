@@ -33,6 +33,8 @@ export default defineImportsRule(function (details) {
   const paths = [
     cwd + "/" + boundaryPrefix + ".imports.ts",
     cwd + "/" + boundaryPrefix + ".imports.js",
+    cwd + "/" + boundaryPrefix + ".imports.cts",
+    cwd + "/" + boundaryPrefix + ".imports.cjs",
   ];
   for (const path of paths) {
     if (!existsSync(path)) continue;

@@ -1,3 +1,7 @@
+# 7.1.0
+
+- Can now use .imports.cts or .imports.cjs files (see imports-config rule).
+
 # 7.0.0
 
 - Breaking: @typescript-eslint/no-floating-promises rule has been renamed to @qawolf/no-floating-promises
