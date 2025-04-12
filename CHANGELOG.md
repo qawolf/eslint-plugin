@@ -1,3 +1,7 @@
+# 8.0.0
+
+- Breaking: automatic formatting replaces `interface` with `type`.
+
 # 7.1.0
 
 - Can now use .imports.cts or .imports.cjs files (see imports-config rule).
