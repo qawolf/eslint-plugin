@@ -28,6 +28,9 @@ export const overrides = [
   {
     files: ["*.d.ts"],
     rules: {
+      // `interface` keyword is needed for declaration merging, when amending 3rd-party types
+      "@typescript-eslint/consistent-type-definitions": "off",
+
       // Splitting declaration files is less useful, and their contents often have long contents
       // copied from documentation or implementation
       "max-lines": "off",

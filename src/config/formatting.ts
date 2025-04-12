@@ -5,6 +5,7 @@ export const formattingRules = {
   "@qawolf/imports-prefix": "error",
 
   "@typescript-eslint/camelcase": "off",
+  "@typescript-eslint/consistent-type-definitions": ["error", "type"],
   // Also see import/consistent-type-specifier-style: they do similar, but slightly different things
   "@typescript-eslint/consistent-type-imports": [
     "error",
