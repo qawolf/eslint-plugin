@@ -28,6 +28,7 @@ export const main = {
     "plugin:promise/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:react-server-components/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {

@@ -93,6 +93,7 @@ export const otherRules = {
   "promise/valid-params": "error",
 
   "react-compiler/react-compiler": "error",
+  "react-server-components/use-client": "error",
 
   "redos/no-vulnerable": [
     "error",
