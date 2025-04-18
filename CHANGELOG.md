@@ -1,3 +1,7 @@
+# 9.0.0
+
+- Breaking: added react-server-components/use-client rule.
+
 # 8.0.0
 
 - Breaking: automatic formatting replaces `interface` with `type`.
