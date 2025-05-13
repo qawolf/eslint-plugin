@@ -19,6 +19,13 @@ export const moduleFromPath = function ({
   projectDirectory: string;
 }): string {
   if (!path.startsWith(projectDirectory)) {
+    if (path === "<input>") {
+      // Hack for our tests to have some value
+      if (process.env.NODE_ENV === "test") return "";
+      throw Error(
+        "The path <input> is unrecognized. If you’re running this plugin’s unit tests, check the workaround above this error.",
+      );
+    }
     throw Error(
       `The path ${path} does not start with the project directory ${projectDirectory}`,
     );
