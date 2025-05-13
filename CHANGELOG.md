@@ -1,3 +1,7 @@
+# 10.0.0
+
+- Breaking: added no-forward-ref rule.
+
 # 9.0.0
 
 - Breaking: added react-server-components/use-client rule.
