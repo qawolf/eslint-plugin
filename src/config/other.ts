@@ -10,6 +10,7 @@ export const otherRules = {
   "@denis-sokolov/no-single-letter-generic-types": "error",
   "@denis-sokolov/no-todos": "error",
 
+  "@qawolf/no-forward-ref": "error",
   "@qawolf/no-utils": "error",
   "@qawolf/restrict-names": "error",
   "@qawolf/restrict-stop-propagation": "error",
