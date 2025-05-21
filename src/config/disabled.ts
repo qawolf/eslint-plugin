@@ -17,6 +17,9 @@ export const disabledRulesFromPresets = {
   // There actually are situations where we need to import "jest" now
   "jest/no-jest-import": "off",
 
+  // Only relevant until ES6; today only produces false positives
+  "no-inner-declarations": "off",
+
   // no-missing-import requires a lot of manual configuration,
   // and we already have TypeScript to catch missing imports
   "node/no-missing-import": "off",
