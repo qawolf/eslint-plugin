@@ -48,6 +48,7 @@ export function makeCheckingFunction({
       | AST.ImportDeclaration
       | AST.ExportNamedDeclaration
       | AST.ExportAllDeclaration
+      | AST.ImportExpression
     );
     typeNames: string[];
   }) {

@@ -80,6 +80,18 @@ export function defineImportsRule(f: (details: ImportDetails) => CheckResult) {
           typeNames,
         });
       },
+      ImportExpression(node) {
+        if (node.source.type !== "Literal") return;
+        if (typeof node.source.value !== "string") return;
+        check({
+          names: [],
+          node: {
+            ...node,
+            source: { ...node.source, value: node.source.value },
+          },
+          typeNames: [],
+        });
+      },
     };
   });
 }
