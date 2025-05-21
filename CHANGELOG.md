@@ -1,3 +1,8 @@
+# 11.0.0
+
+- Breaking: import rules now catch some dynamic imports.
+- Disabled an outdated rule no-inner-declarations.
+
 # 10.0.0
 
 - Breaking: added no-forward-ref rule.
