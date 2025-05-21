@@ -141,19 +141,21 @@ export function makeCheckingFunction({
             ? node.specifiers.filter((specifier) =>
                 names.includes(getSpecifierName(specifier.exported)),
               )
-            : [];
-      if (specifiers.length === 0) {
-        throw Error(
-          "You have provided a forbiddenName or forbiddenNames, but I did not pass you any of these as actually imported.",
-        );
-      }
-      specifiers.forEach((specifier) => {
-        context.report({
-          loc: specifier.loc,
-          message,
+            : "can-not-find-specifiers";
+      if (specifiers !== "can-not-find-specifiers") {
+        if (specifiers.length === 0) {
+          throw Error(
+            "You have provided a forbiddenName or forbiddenNames, but I did not pass you any of these as actually imported.",
+          );
+        }
+        specifiers.forEach((specifier) => {
+          context.report({
+            loc: specifier.loc,
+            message,
+          });
         });
-      });
-      return;
+        return;
+      }
     }
     context.report({
       fix: fix

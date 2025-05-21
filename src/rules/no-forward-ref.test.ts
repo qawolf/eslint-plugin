@@ -23,6 +23,12 @@ invalid(
 
 invalid(
   rule,
+  "can not import forwardRef using dynamic import",
+  "const { forwardRef } = await import('react')",
+);
+
+invalid(
+  rule,
   "can not import ForwardedRef",
   "import { type ForwardedRef } from 'react'",
 );

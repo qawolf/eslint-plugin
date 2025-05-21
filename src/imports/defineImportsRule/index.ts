@@ -83,8 +83,25 @@ export function defineImportsRule(f: (details: ImportDetails) => CheckResult) {
       ImportExpression(node) {
         if (node.source.type !== "Literal") return;
         if (typeof node.source.value !== "string") return;
+
+        const names: string[] = (function () {
+          const { parent } = node;
+          if (parent.type !== "AwaitExpression") return [];
+          const grandParent = parent.parent;
+          if (grandParent.type !== "VariableDeclarator") return [];
+          const declarator = grandParent;
+          if (declarator.id.type !== "ObjectPattern") return [];
+          const { properties } = declarator.id;
+          return properties
+            .map((property) => {
+              if (property.type !== "Property") return undefined;
+              if (property.key.type !== "Identifier") return undefined;
+              return property.key.name;
+            })
+            .filter(Boolean);
+        })();
         check({
-          names: [],
+          names,
           node: {
             ...node,
             source: { ...node.source, value: node.source.value },
