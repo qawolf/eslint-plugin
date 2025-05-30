@@ -24,7 +24,7 @@ export const main = {
     "plugin:jest/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "plugin:node/recommended",
+    "plugin:n/recommended",
     "plugin:promise/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",

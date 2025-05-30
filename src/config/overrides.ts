@@ -22,7 +22,7 @@ export const overrides = [
       "@typescript-eslint/no-non-null-assertion": "off",
 
       // Allow test files to use dev dependencies
-      "node/no-unpublished-import": "off",
+      "n/no-unpublished-import": "off",
     },
   },
   {

@@ -22,7 +22,7 @@ export const disabledRulesFromPresets = {
 
   // no-missing-import requires a lot of manual configuration,
   // and we already have TypeScript to catch missing imports
-  "node/no-missing-import": "off",
+  "n/no-missing-import": "off",
 
   "promise/always-return": "off",
   "promise/no-callback-in-promise": "off",
