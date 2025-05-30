@@ -69,10 +69,10 @@ export const otherRules = {
   ],
   "no-throw-literal": "error",
 
-  "node/no-unsupported-features/es-syntax": [
+  "n/no-unsupported-features/es-syntax": [
     "error",
     {
-      // https://github.com/mysticatea/eslint-plugin-node/blob/HEAD/docs/rules/no-unsupported-features/es-syntax.md#ignores
+      // https://github.com/eslint-community/eslint-plugin-n/blob/HEAD/docs/rules/no-unsupported-features/es-syntax.md#ignores
       ignores: ["dynamicImport", "modules"],
     },
   ],
