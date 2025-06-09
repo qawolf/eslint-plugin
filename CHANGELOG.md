@@ -5,6 +5,7 @@
 # 12.0.0
 
 Switch from `eslint-plugin-node`, which is abandoned, to `eslint-plugin-n`. Although it's basically a drop-in replacement, there are some breaking changes:
+
 - All config and eslint-disable comments will need to be updated from `node/` to `n/`
 - There may be new errors found because `eslint-plugin-n` has been maintained and received fixes while `eslint-plugin-node` has not. Updating to 12.0.0 will require fixing or ignoring these new errors.
 
