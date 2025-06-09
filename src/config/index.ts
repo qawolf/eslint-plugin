@@ -45,7 +45,7 @@ export const main = {
     "github",
     "jest",
     "import",
-    "node",
+    "n",
     "perfectionist",
     "promise",
     "react-compiler",
