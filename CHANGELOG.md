@@ -1,3 +1,7 @@
+# 12.0.1
+
+- Fix config mistake in 12.0.0
+
 # 12.0.0
 
 Switch from `eslint-plugin-node`, which is abandoned, to `eslint-plugin-n`. Although it's basically a drop-in replacement, there are some breaking changes:
