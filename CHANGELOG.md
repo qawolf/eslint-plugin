@@ -1,3 +1,7 @@
+# 12.1.0
+
+- Can now access the original import node when defining custom import rules
+
 # 12.0.1
 
 - Fix config mistake in 12.0.0
