@@ -1,3 +1,5 @@
+import { type AST } from "../eslint";
+
 export type CheckResult =
   | {
       allowed: true;
@@ -52,6 +54,11 @@ export type ImportDetails = {
     nonType: string[];
     type: string[];
   };
+  node:
+    | AST.ImportDeclaration
+    | AST.ImportExpression
+    | AST.ExportNamedDeclaration
+    | AST.ExportAllDeclaration;
 };
 
 export type RelativeImportDetails = ImportDetails & {

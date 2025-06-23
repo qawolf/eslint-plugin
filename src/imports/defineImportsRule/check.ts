@@ -112,6 +112,7 @@ export function makeCheckingFunction({
         path: importingPath,
         isIndex: isPathIndex(importingPath),
       },
+      node,
     });
     if (typeof returned !== "object") {
       throw Error(
