@@ -1,3 +1,7 @@
+# 12.1.1
+
+- Relax jest/valid-title to allow variables as names
+
 # 12.1.0
 
 - Can now access the original import node when defining custom import rules
