@@ -57,6 +57,15 @@ export const otherRules = {
   ],
   "jest/no-commented-out-tests": "error",
   "jest/no-disabled-tests": "error",
+  "jest/valid-title": [
+    "error",
+    {
+      // False positives with passing variables as names
+      // Also useless given TypeScript
+      ignoreTypeOfDescribeName: true,
+      ignoreTypeOfTestName: true,
+    },
+  ],
 
   "max-params": ["error", { max: 3 }],
 
