@@ -9,13 +9,13 @@ export const formattingRules = {
   // Also see import/consistent-type-specifier-style: they do similar, but slightly different things
   "@typescript-eslint/consistent-type-imports": [
     "error",
-    { fixStyle: "inline-type-imports" },
+    { fixStyle: "separate-type-imports" },
   ],
 
   curly: ["error", "multi-or-nest"],
 
   // Also see @typescript-eslint/consistent-type-imports: they do similar, but slightly different things
-  "import/consistent-type-specifier-style": ["error", "prefer-inline"],
+  "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
 
   "object-shorthand": ["error", "always", { avoidExplicitReturnArrows: true }],
 
