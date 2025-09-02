@@ -1,3 +1,7 @@
+# 13.0.0
+
+- Switch from `prefer-inline` to `prefer-top-level-if-only-type-imports` for the `import/consistent-type-specifier-style` rule
+
 # 12.1.1
 
 - Relax jest/valid-title to allow variables as names
