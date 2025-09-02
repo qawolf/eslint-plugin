@@ -15,7 +15,10 @@ export const formattingRules = {
   curly: ["error", "multi-or-nest"],
 
   // Also see @typescript-eslint/consistent-type-imports: they do similar, but slightly different things
-  "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+  "import/consistent-type-specifier-style": [
+    "error",
+    "prefer-top-level-if-only-type-imports",
+  ],
 
   "object-shorthand": ["error", "always", { avoidExplicitReturnArrows: true }],
 
