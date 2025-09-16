@@ -3,10 +3,7 @@ import type { Linter } from "eslint";
 import { restrictedSyntaxRules } from "./restricted-syntax";
 
 export const otherRules = {
-  "@denis-sokolov/exhaustive-deps-async": [
-    "error",
-    { additionalHooks: "useAsyncEffectAndCatch" },
-  ],
+  "@denis-sokolov/exhaustive-deps-async": "error",
   "@denis-sokolov/no-single-letter-generic-types": "error",
   "@denis-sokolov/no-todos": "error",
 
