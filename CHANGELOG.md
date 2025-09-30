@@ -1,3 +1,7 @@
+# 14.0.0
+
+- @denis-sokolov/exhaustive-deps-async no longer has additionalHooks predefined. Define them in your configuration if need be.
+
 # 13.0.0
 
 - Switch from `prefer-inline` to `prefer-top-level-if-only-type-imports` for the `import/consistent-type-specifier-style` rule
