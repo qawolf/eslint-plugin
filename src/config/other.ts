@@ -99,7 +99,11 @@ export const otherRules = {
   "promise/no-return-in-finally": "error",
   "promise/valid-params": "error",
 
-  "react-compiler/react-compiler": "error",
+  // Upgrade from a warning in the recommended config
+  "react-hooks/incompatible-library": "error",
+  // Upgrade from a warning in the recommended config
+  "react-hooks/unsupported-syntax": "error",
+
   "react-server-components/use-client": "error",
 
   "redos/no-vulnerable": [
