@@ -1,3 +1,8 @@
+# 15.0.0
+
+- Enabled many new react-hooks rules.
+- Made rulesdir more compatible with complex configurations.
+
 # 14.0.0
 
 - @denis-sokolov/exhaustive-deps-async no longer has additionalHooks predefined. Define them in your configuration if need be.

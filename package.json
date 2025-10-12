@@ -51,5 +51,5 @@
     "verify": "npm run tsc:check && npm run lint && npm run test"
   },
   "type": "commonjs",
-  "version": "14.0.0"
+  "version": "15.0.0"
 }
