@@ -55,7 +55,6 @@ export const main = {
     "n",
     "perfectionist",
     "promise",
-    "react-compiler",
     "redos",
   ],
   rules: {
