@@ -1,3 +1,7 @@
+# 16.0.0
+
+- ~/ imports are now sorted correctly as local.
+
 # 15.0.0
 
 - Enabled many new react-hooks rules.
