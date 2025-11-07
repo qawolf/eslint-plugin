@@ -49,7 +49,7 @@ export const formattingRules = {
         "object",
         "unknown",
       ],
-      internalPattern: ["^@/", "^app/"],
+      internalPattern: ["^~/", "^@/", "^app/"],
       sortSideEffects: true,
       type: "natural",
     },
