@@ -82,6 +82,12 @@ export const otherRules = {
       ignores: ["dynamicImport", "modules"],
     },
   ],
+  "n/no-process-env": [
+    "error",
+    {
+      allowedVariables: ["NEXT_RUNTIME"],
+    },
+  ],
 
   "no-restricted-globals": [
     "error",
