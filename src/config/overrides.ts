@@ -23,6 +23,9 @@ export const overrides = [
 
       // Allow test files to use dev dependencies
       "n/no-unpublished-import": "off",
+
+      // Allow test files to use process.env
+      "n/no-process-env": "off",
     },
   },
   {
@@ -54,29 +57,6 @@ export const overrides = [
           ({ selector }) => selector !== "ExportDefaultDeclaration",
         ),
       ],
-    },
-  },
-  // We normally disallow process.env, but it's fine to use it in test files,
-  // config files, scripts, etc., and also in the `env.ts` file.
-  {
-    files: [
-      "*.test.ts",
-      "*.test.tsx",
-      "*.type-test.ts",
-      "*.type-test.tsx",
-      "**/test/**",
-      "**/.jest/**",
-      "**/env/**/*.ts",
-      "**/env.ts",
-      "**/environment.ts",
-      "**/next-config/**",
-      "**/webpack/**",
-      "scripts/**",
-      "jest.config.*",
-      "webpack.config.*",
-    ],
-    rules: {
-      "n/no-process-env": "off",
     },
   },
 ] satisfies Linter.Config["overrides"];
