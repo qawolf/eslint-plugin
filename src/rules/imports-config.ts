@@ -22,6 +22,12 @@ export default defineImportsRule(function (details) {
   if (imported.type !== "relative") return { allowed: true };
 
   const { boundary } = imported;
+  if (
+    boundary === "importing-is-outside-project" ||
+    !details.importing.insideProject
+  )
+    return { allowed: true };
+
   const them = getTopDir(
     imported.module.substring(boundary.modulePrefix.length),
   );

@@ -35,21 +35,23 @@ export type CheckResult =
 export type ImportDetails = {
   imported: { verbatim: string } & (
     | {
-        boundary: {
-          module: string;
-          modulePrefix: string;
-        };
+        boundary:
+          | "importing-is-outside-project"
+          | {
+              module: string;
+              modulePrefix: string;
+            };
         type: "relative";
         module: string;
         withTypeScriptAlias: boolean;
       }
     | { type: "other" }
+    | { type: "relative-outside-project" }
   );
   importing: {
     isIndex: boolean;
-    module: string;
     path: string;
-  };
+  } & ({ insideProject: true; module: string } | { insideProject: false });
   names: {
     all: string[];
     default?: string;

@@ -4,7 +4,7 @@ import { loadConfig } from "tsconfig-paths";
 
 export function moduleFromContext(
   context: { filename: string } & Parameters<typeof getProjectDirectory>[0],
-): string {
+): { module: string } | "path-outside-project" {
   return moduleFromPath({
     path: context.filename,
     projectDirectory: getProjectDirectory(context),
@@ -17,21 +17,19 @@ export const moduleFromPath = function ({
 }: {
   path: string;
   projectDirectory: string;
-}): string {
+}): { module: string } | "path-outside-project" {
   if (!path.startsWith(projectDirectory)) {
     if (path === "<input>") {
       // Hack for our tests to have some value
-      if (process.env.NODE_ENV === "test") return "";
+      if (process.env.NODE_ENV === "test") return { module: "" };
       throw Error(
         "The path <input> is unrecognized. If you’re running this plugin’s unit tests, check the workaround above this error.",
       );
     }
-    throw Error(
-      `The path ${path} does not start with the project directory ${projectDirectory}`,
-    );
+    return "path-outside-project";
   }
   const relativePath = path.substring(projectDirectory.length + 1);
-  return relativePath.replace(/(\/index)?\.[jt]sx?$/, "");
+  return { module: relativePath.replace(/(\/index)?\.[jt]sx?$/, "") };
 };
 
 export const isPathIndex = function (path: string): boolean {

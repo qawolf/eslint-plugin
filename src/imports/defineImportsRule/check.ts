@@ -24,7 +24,7 @@ export function makeCheckingFunction({
 }) {
   const importingPath = context.filename;
   const projectDirectory = getProjectDirectory(context);
-  const importingModule = moduleFromContext(context);
+  const importing = moduleFromContext(context);
   const config = loadConfig(path.dirname(importingPath));
   const matchTypescriptPaths =
     config.resultType === "success"
@@ -61,11 +61,13 @@ export function makeCheckingFunction({
             path.dirname(importingPath),
             verbatim,
           );
+          const result = moduleFromPath({
+            path: resolvedPath,
+            projectDirectory,
+          });
+          if (result === "path-outside-project") return "outside-project";
           return {
-            module: moduleFromPath({
-              path: resolvedPath,
-              projectDirectory,
-            }),
+            module: result.module,
             withTypeScriptAlias: false,
           };
         }
@@ -73,11 +75,13 @@ export function makeCheckingFunction({
         if (matchTypescriptPaths) {
           const matchedPath = matchTypescriptPaths(verbatim);
           if (matchedPath?.startsWith(projectDirectory)) {
+            const result = moduleFromPath({
+              path: matchedPath,
+              projectDirectory,
+            });
+            if (result === "path-outside-project") return "outside-project";
             return {
-              module: moduleFromPath({
-                path: matchedPath,
-                projectDirectory,
-              }),
+              module: result.module,
               withTypeScriptAlias: true,
             };
           }
@@ -86,13 +90,29 @@ export function makeCheckingFunction({
         return "unknown";
       })();
 
-      if (resolved !== "unknown") {
-        const boundaryModule = findBoundary(importingModule, resolved.module);
+      if (resolved === "outside-project") {
         return {
-          boundary: {
-            module: boundaryModule,
-            modulePrefix: boundaryModule ? boundaryModule + "/" : "",
-          },
+          verbatim,
+          type: "relative-outside-project",
+        };
+      }
+
+      if (resolved !== "unknown") {
+        return {
+          boundary:
+            importing === "path-outside-project"
+              ? "importing-is-outside-project"
+              : (() => {
+                  const boundaryModule = findBoundary(
+                    importing.module,
+                    resolved.module,
+                  );
+                  return {
+                    module: boundaryModule,
+                    modulePrefix: boundaryModule ? boundaryModule + "/" : "",
+                  };
+                })(),
+
           module: resolved.module,
           type: "relative",
           verbatim,
@@ -115,9 +135,11 @@ export function makeCheckingFunction({
       },
       imported,
       importing: {
-        module: importingModule,
         path: importingPath,
         isIndex: isPathIndex(importingPath),
+        ...(importing === "path-outside-project"
+          ? { insideProject: false }
+          : { insideProject: true, module: importing.module }),
       },
       node,
       projectDirectory,

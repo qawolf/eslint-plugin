@@ -63,6 +63,8 @@ export function getDesiredAbsoluteImport({
   if (imported.type !== "relative") return;
 
   const { boundary } = imported;
+  if (boundary === "importing-is-outside-project") return;
+
   const desiredAbsolutePrefix = getAbsoluteImportPrefixForDir(
     projectDirectory + (boundary.module ? "/" + boundary.module : ""),
   );

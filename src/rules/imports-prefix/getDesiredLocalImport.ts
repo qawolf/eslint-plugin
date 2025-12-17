@@ -11,6 +11,7 @@ import { type ImportDetails } from "../../imports";
  */
 export function getDesiredLocalImport({ importing, imported }: ImportDetails) {
   if (imported.type !== "relative") return;
+  if (!importing.insideProject) return;
 
   const currentDirectory = importing.isIndex
     ? importing.module
