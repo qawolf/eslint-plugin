@@ -21,15 +21,17 @@ export default defineImportsRule(function (details) {
   const { imported, projectDirectory } = details;
   if (imported.type !== "relative") return { allowed: true };
 
-  const { boundaryPrefix } = imported;
-  const them = getTopDir(imported.module.substring(boundaryPrefix.length));
+  const { boundary } = imported;
+  const them = getTopDir(
+    imported.module.substring(boundary.modulePrefix.length),
+  );
   const us = getTopDir(
-    details.importing.module.substring(boundaryPrefix.length),
+    details.importing.module.substring(boundary.modulePrefix.length),
   );
   if (them === us) return { allowed: true };
 
   const config = getImportsConfigAt(
-    projectDirectory + "/" + boundaryPrefix.replace(/\/$/, ""),
+    projectDirectory + "/" + boundary.modulePrefix.replace(/\/$/, ""),
   );
   if (!config || !config.whitelist) return { allowed: true };
 
@@ -42,6 +44,6 @@ export default defineImportsRule(function (details) {
 
   return {
     allowed: false,
-    message: `Importing from ${boundaryPrefix}${them} is not allowed in ${boundaryPrefix}${us}, check ${boundaryPrefix.replace(projectDirectory + "/", "")}.imports file.`,
+    message: `Importing from ${boundary.modulePrefix}${them} is not allowed in ${boundary.modulePrefix}${us}, check ${boundary.modulePrefix.replace(projectDirectory + "/", "")}.imports file.`,
   };
 });

@@ -62,15 +62,16 @@ export function getDesiredAbsoluteImport({
 }: ImportDetails) {
   if (imported.type !== "relative") return;
 
-  const { boundaryModule, boundaryPrefix } = imported;
+  const { boundary } = imported;
   const desiredAbsolutePrefix = getAbsoluteImportPrefixForDir(
-    projectDirectory + (boundaryModule ? "/" + boundaryModule : ""),
+    projectDirectory + (boundary.module ? "/" + boundary.module : ""),
   );
   if (!desiredAbsolutePrefix) return;
 
-  if (boundaryModule === imported.module)
+  if (boundary.module === imported.module)
     return desiredAbsolutePrefix.replace(/\/$/, "");
   return (
-    desiredAbsolutePrefix + imported.module.substring(boundaryPrefix.length)
+    desiredAbsolutePrefix +
+    imported.module.substring(boundary.modulePrefix.length)
   );
 }

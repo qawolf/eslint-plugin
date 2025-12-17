@@ -65,8 +65,10 @@ export function makeCheckingFunction({
         });
         const boundaryModule = findBoundary(importingModule, importedModule);
         return {
-          boundaryModule,
-          boundaryPrefix: boundaryModule ? boundaryModule + "/" : "",
+          boundary: {
+            module: boundaryModule,
+            modulePrefix: boundaryModule ? boundaryModule + "/" : "",
+          },
           module: importedModule,
           type: "relative",
           verbatim,
@@ -83,8 +85,10 @@ export function makeCheckingFunction({
           });
           const boundaryModule = findBoundary(importingModule, module);
           return {
-            boundaryModule,
-            boundaryPrefix: boundaryModule ? boundaryModule + "/" : "",
+            boundary: {
+              module: boundaryModule,
+              modulePrefix: boundaryModule ? boundaryModule + "/" : "",
+            },
             type: "relative",
             module,
             verbatim,
