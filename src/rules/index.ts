@@ -2,6 +2,7 @@ import { type RuleDefinition } from "../eslint";
 
 import importsConfig from "./imports-config";
 import importsConfigValid from "./imports-config-valid";
+import importsFromEncapsulated from "./imports-from-encapsulated";
 import importsPrefix from "./imports-prefix";
 import maxLines from "./max-lines";
 import noFloatingPromises from "./no-floating-promises";
@@ -15,6 +16,7 @@ import restrictStopPropagation from "./restrict-stop-propagation";
 export const rules = {
   "imports-config": importsConfig,
   "imports-config-valid": importsConfigValid,
+  "imports-from-encapsulated": importsFromEncapsulated,
   "imports-prefix": importsPrefix,
   "max-lines": maxLines,
   "no-utils": noUtils,

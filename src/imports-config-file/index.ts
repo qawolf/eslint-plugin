@@ -10,6 +10,7 @@ const filenames = [
 
 type Config = {
   absoluteImportPrefix?: string | true;
+  encapsulated?: boolean;
   whitelist: Record<string, string[]> & { allowByDefault?: boolean };
 };
 
@@ -26,6 +27,8 @@ function validateConfig(config: object): asserts config is Config {
       `Invalid imports config: absoluteImportPrefix must be a string or true.`,
     );
   }
+  if ("encapsulated" in config && typeof config.encapsulated !== "boolean")
+    throw Error(`Invalid imports config: encapsulated must be a boolean.`);
   if ("whitelist" in config) {
     if (typeof config.whitelist !== "object" || config.whitelist === null)
       throw Error(`Invalid imports config: whitelist must be an object.`);

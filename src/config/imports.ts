@@ -4,6 +4,7 @@ export const importVerificationRules = {
   "@qawolf/imports-prefix": "error",
   "@qawolf/imports-config": "error",
   "@qawolf/imports-config-valid": "error",
+  "@qawolf/imports-from-encapsulated": "error",
   "@qawolf/restrict-react-namespace": "error",
 
   "import/no-duplicates": "error",
