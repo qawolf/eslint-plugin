@@ -113,6 +113,7 @@ export function makeCheckingFunction({
         isIndex: isPathIndex(importingPath),
       },
       node,
+      projectDirectory,
     });
     if (typeof returned !== "object") {
       throw Error(

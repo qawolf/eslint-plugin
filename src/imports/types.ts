@@ -59,6 +59,11 @@ export type ImportDetails = {
     | AST.ImportExpression
     | AST.ExportNamedDeclaration
     | AST.ExportAllDeclaration;
+  /**
+   * The root directory from where the module paths are calculated
+   * E.g. if the app root is /home/user/app and the importing module is /home/user/app/components/Button/index.ts, the projectDirectory is /home/user/app, and the importing.module is components/Button/index
+   */
+  projectDirectory: string;
 };
 
 export type RelativeImportDetails = ImportDetails & {
