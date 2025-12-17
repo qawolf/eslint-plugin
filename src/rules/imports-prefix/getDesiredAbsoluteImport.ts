@@ -56,13 +56,15 @@ function getAbsoluteImportPrefixForDir(
  * In aaa2.js, an import from "../aa1/aaa1" will be rewritten to "app/a/aa1/aaa1", as we’re crossing a boundary. The path is constructed using a reference to the top-level boundary.
  * In bbb2.js, an import from "../bb1/bbb1" will not be rewritten, because there is no boundary defined. We’re presumed to be in one closed module.
  */
-export function getDesiredAbsoluteImport({ imported }: ImportDetails) {
+export function getDesiredAbsoluteImport({
+  imported,
+  projectDirectory,
+}: ImportDetails) {
   if (imported.type !== "relative") return;
 
   const { boundaryModule, boundaryPrefix } = imported;
-  const cwd = process.cwd();
   const desiredAbsolutePrefix = getAbsoluteImportPrefixForDir(
-    cwd + (boundaryModule ? "/" + boundaryModule : ""),
+    projectDirectory + (boundaryModule ? "/" + boundaryModule : ""),
   );
   if (!desiredAbsolutePrefix) return;
 

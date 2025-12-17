@@ -18,11 +18,10 @@ function getTopDir(path: string) {
  *  export const whitelist = { backend: ["shared"], frontend: ["shared"] };
  */
 export default defineImportsRule(function (details) {
-  const { imported } = details;
+  const { imported, projectDirectory } = details;
   if (imported.type !== "relative") return { allowed: true };
 
   const { boundaryPrefix } = imported;
-  const cwd = process.cwd();
   const them = getTopDir(imported.module.substring(boundaryPrefix.length));
   const us = getTopDir(
     details.importing.module.substring(boundaryPrefix.length),
@@ -30,7 +29,7 @@ export default defineImportsRule(function (details) {
   if (them === us) return { allowed: true };
 
   const config = getImportsConfigAt(
-    cwd + "/" + boundaryPrefix.replace(/\/$/, ""),
+    projectDirectory + "/" + boundaryPrefix.replace(/\/$/, ""),
   );
   if (!config || !config.whitelist) return { allowed: true };
 
@@ -43,6 +42,6 @@ export default defineImportsRule(function (details) {
 
   return {
     allowed: false,
-    message: `Importing from ${boundaryPrefix}${them} is not allowed in ${boundaryPrefix}${us}, check ${boundaryPrefix.replace(cwd + "/", "")}.imports file.`,
+    message: `Importing from ${boundaryPrefix}${them} is not allowed in ${boundaryPrefix}${us}, check ${boundaryPrefix.replace(projectDirectory + "/", "")}.imports file.`,
   };
 });
