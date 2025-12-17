@@ -31,6 +31,9 @@
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "license": "ISC",
   "main": "dist/index.js",
   "name": "@qawolf/eslint-plugin",
