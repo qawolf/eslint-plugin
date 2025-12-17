@@ -32,6 +32,7 @@ export const main = {
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:n/recommended",
+    "plugin:no-await-in-promise/recommended-legacy",
     "plugin:promise/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
