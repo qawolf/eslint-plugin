@@ -8,7 +8,7 @@
     "declarationMap": true,
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": false,
-    "lib": ["es2021"],
+    "lib": ["es2022"],
     "importHelpers": true,
     "module": "node16",
     "moduleResolution": "node16",
@@ -17,7 +17,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "sourceMap": true,
-    "target": "es2021",
+    "target": "es2022",
     "verbatimModuleSyntax": false
   },
   "include": ["src", "typings"]
