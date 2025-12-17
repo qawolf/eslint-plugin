@@ -1,3 +1,12 @@
+# 17.0.0
+
+- Breaking: now requires Node 20.19.
+- Breaking: parameter to defineImportsRule has slight changes, check the typings.
+- Enable no-await-in-promise.
+- Enable no-sequences.
+- Import rules now handle files outside of projectDirectory.
+- Added module encapsulation (`export const encapsulated = true` in `.imports.cts`).
+
 # 16.0.0
 
 - ~/ imports are now sorted correctly as local.
