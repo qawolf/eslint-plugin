@@ -1,14 +1,13 @@
 import { defineRule } from "../eslint";
+import {
+  isImportsConfigFile,
+  readImportsConfigFile,
+} from "../imports-config-file";
 import { dirname } from "path";
 import { readdirSync } from "fs";
 
 export default defineRule(function (context) {
-  const isConfig =
-    context.physicalFilename.endsWith("/.imports.js") ||
-    context.physicalFilename.endsWith("/.imports.ts") ||
-    context.physicalFilename.endsWith("/.imports.cjs") ||
-    context.physicalFilename.endsWith("/.imports.cts");
-  if (!isConfig) return {};
+  if (!isImportsConfigFile(context.physicalFilename)) return {};
   const directory = dirname(context.physicalFilename);
 
   return {
@@ -20,10 +19,21 @@ export default defineRule(function (context) {
 
       // Ensure re-reading file from disk for persistent eslint runs, e.g. in IDEs
       delete require.cache[require.resolve(context.physicalFilename)];
-      const { whitelist } = require(context.physicalFilename);
-      if (!whitelist) return;
+      let config;
+      try {
+        config = readImportsConfigFile(context.physicalFilename);
+      } catch (e) {
+        context.report({
+          loc: {
+            start: { line: 1, column: 0 },
+            end: { line: 2, column: 0 },
+          },
+          message: `Invalid imports config file: ${(e as Error).message}`,
+        });
+        return;
+      }
 
-      Object.entries(whitelist).forEach(([key, value]) => {
+      Object.entries(config.whitelist ?? {}).forEach(([key]) => {
         if (!isValidEntry(key)) {
           context.report({
             loc: {
@@ -31,29 +41,6 @@ export default defineRule(function (context) {
               end: { line: 2, column: 0 },
             },
             message: `Invalid whitelist key: ${key}, it seems there is no file/folder with that name in this directory`,
-          });
-        }
-
-        if (Array.isArray(value)) {
-          value.forEach((entry) => {
-            if (typeof entry !== "string") return;
-            if (!isValidEntry(entry)) {
-              context.report({
-                loc: {
-                  start: { line: 1, column: 0 },
-                  end: { line: 2, column: 0 },
-                },
-                message: `Invalid whitelist entry: ${key}: ${entry}, it seems there is no file/folder with that name in this directory`,
-              });
-            }
-          });
-        } else {
-          context.report({
-            loc: {
-              start: { line: 1, column: 0 },
-              end: { line: 2, column: 0 },
-            },
-            message: `Value for whitelist entry ${key} must be an array`,
           });
         }
       });

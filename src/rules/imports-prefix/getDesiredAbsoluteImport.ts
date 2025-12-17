@@ -2,6 +2,7 @@ import { existsSync } from "fs";
 import { basename, dirname } from "path";
 
 import { type ImportDetails } from "../../imports";
+import { getImportsConfigAt } from "../../imports-config-file";
 
 function getAbsoluteImportPrefixForDir(
   dir: string,
@@ -15,21 +16,11 @@ function getAbsoluteImportPrefixForDir(
     return pref + basename(dir) + "/";
   }
 
-  const paths = [
-    dir + "/.imports.ts",
-    dir + "/.imports.js",
-    dir + "/.imports.cts",
-    dir + "/.imports.cjs",
-  ];
-  for (const path of paths) {
-    if (!existsSync(path)) continue;
-    // eslint-disable-next-line @typescript-eslint/no-var-requires -- ESLint does not support async rules, we must use a sync require. Under the hood this file runs in CommonJS anyway.
-    const config = require(path);
+  const config = getImportsConfigAt(dir);
+  if (config) {
     const absoluteImportPrefix = config.absoluteImportPrefix;
     if (typeof absoluteImportPrefix === "string") return absoluteImportPrefix;
     if (absoluteImportPrefix === true) return recur();
-    if (absoluteImportPrefix !== undefined)
-      throw Error(`Invalid absoluteImportPrefix value in ${path}`);
   }
   if (options.continueRecursing) {
     if (existsSync(dir + "/package.json")) {

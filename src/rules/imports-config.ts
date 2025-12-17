@@ -1,6 +1,5 @@
-import { existsSync } from "fs";
-
 import { defineImportsRule } from "../imports";
+import { getImportsConfigAt } from "../imports-config-file";
 
 function getTopDir(path: string) {
   return path.split("/")[0] ?? path;
@@ -30,28 +29,20 @@ export default defineImportsRule(function (details) {
   );
   if (them === us) return { allowed: true };
 
-  const paths = [
-    cwd + "/" + boundaryPrefix + ".imports.ts",
-    cwd + "/" + boundaryPrefix + ".imports.js",
-    cwd + "/" + boundaryPrefix + ".imports.cts",
-    cwd + "/" + boundaryPrefix + ".imports.cjs",
-  ];
-  for (const path of paths) {
-    if (!existsSync(path)) continue;
-    // eslint-disable-next-line @typescript-eslint/no-var-requires -- ESLint does not support async rules, we must use a sync require. Under the hood this file runs in CommonJS anyway.
-    const config = require(path);
-    const whitelistMap = config.whitelist;
-    if (!whitelistMap) continue;
-    const whitelistInFile = whitelistMap[us];
-    if (!whitelistInFile && whitelistMap.allowByDefault) continue;
-    const whitelistDeFacto = whitelistInFile ?? [];
-    if (!whitelistDeFacto.includes(them)) {
-      return {
-        allowed: false,
-        message: `Importing from ${boundaryPrefix}${them} is not allowed in ${boundaryPrefix}${us}, check ${path.replace(cwd + "/", "")}.`,
-      };
-    }
-  }
+  const config = getImportsConfigAt(
+    cwd + "/" + boundaryPrefix.replace(/\/$/, ""),
+  );
+  if (!config || !config.whitelist) return { allowed: true };
 
-  return { allowed: true };
+  const whitelistInFile = config.whitelist[us];
+  if (!whitelistInFile && config.whitelist.allowByDefault)
+    return { allowed: true };
+
+  const whitelistDeFacto = whitelistInFile ?? [];
+  if (whitelistDeFacto.includes(them)) return { allowed: true };
+
+  return {
+    allowed: false,
+    message: `Importing from ${boundaryPrefix}${them} is not allowed in ${boundaryPrefix}${us}, check ${boundaryPrefix.replace(cwd + "/", "")}.imports file.`,
+  };
 });
