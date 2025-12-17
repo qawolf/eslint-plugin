@@ -54,47 +54,50 @@ export function makeCheckingFunction({
   }) {
     const imported: ImportDetails["imported"] = (function () {
       const verbatim = node.source.value;
-      if (verbatim.startsWith(".")) {
-        const resolvedPath = path.resolve(
-          path.dirname(importingPath),
-          verbatim,
-        );
-        const importedModule = moduleFromPath({
-          path: resolvedPath,
-          projectDirectory,
-        });
-        const boundaryModule = findBoundary(importingModule, importedModule);
+
+      const resolved = (function () {
+        if (verbatim.startsWith(".")) {
+          const resolvedPath = path.resolve(
+            path.dirname(importingPath),
+            verbatim,
+          );
+          return {
+            module: moduleFromPath({
+              path: resolvedPath,
+              projectDirectory,
+            }),
+            withTypeScriptAlias: false,
+          };
+        }
+
+        if (matchTypescriptPaths) {
+          const matchedPath = matchTypescriptPaths(verbatim);
+          if (matchedPath?.startsWith(projectDirectory)) {
+            return {
+              module: moduleFromPath({
+                path: matchedPath,
+                projectDirectory,
+              }),
+              withTypeScriptAlias: true,
+            };
+          }
+        }
+
+        return "unknown";
+      })();
+
+      if (resolved !== "unknown") {
+        const boundaryModule = findBoundary(importingModule, resolved.module);
         return {
           boundary: {
             module: boundaryModule,
             modulePrefix: boundaryModule ? boundaryModule + "/" : "",
           },
-          module: importedModule,
+          module: resolved.module,
           type: "relative",
           verbatim,
-          withTypeScriptAlias: false,
+          withTypeScriptAlias: resolved.withTypeScriptAlias,
         };
-      }
-
-      if (matchTypescriptPaths) {
-        const matchedPath = matchTypescriptPaths(verbatim);
-        if (matchedPath?.startsWith(projectDirectory)) {
-          const module = moduleFromPath({
-            path: matchedPath,
-            projectDirectory,
-          });
-          const boundaryModule = findBoundary(importingModule, module);
-          return {
-            boundary: {
-              module: boundaryModule,
-              modulePrefix: boundaryModule ? boundaryModule + "/" : "",
-            },
-            type: "relative",
-            module,
-            verbatim,
-            withTypeScriptAlias: true,
-          };
-        }
       }
 
       return {
