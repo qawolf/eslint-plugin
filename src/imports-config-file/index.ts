@@ -89,7 +89,18 @@ export function readImportsConfigFile(path: string) {
   if (!isImportsConfigFile(path))
     throw Error(`Not an imports config file: ${path}`);
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires -- ESLint does not support async rules, we must use a sync require. Under the hood this file runs in CommonJS anyway.
-  const requireResult = require(path);
+  let requireResult;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires -- ESLint does not support async rules, we must use a sync require. Under the hood this file runs in CommonJS anyway.
+    requireResult = require(path);
+  } catch (err) {
+    if (err instanceof Error && err.message.includes("ES Module")) {
+      return {
+        valid: false,
+        error: `Imports config file must be CommonJS. Try a .cjs or .cts extension instead.`,
+      } as const;
+    }
+    throw err;
+  }
   return validateConfig(requireResult);
 }
