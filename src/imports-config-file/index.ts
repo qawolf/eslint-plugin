@@ -73,7 +73,10 @@ export function getImportsConfigAt(directory: string): Config | undefined {
   const paths = filenames.map((suffix) => directory + "/" + suffix);
   for (const path of paths) {
     if (!existsSync(path)) continue;
-    return readImportsConfigFile(path);
+    const readResult = readImportsConfigFile(path);
+    if (!readResult.valid)
+      throw Error(`Invalid imports config at ${path}: ${readResult.error}`);
+    return readResult.config;
   }
   return undefined;
 }
@@ -82,14 +85,11 @@ export function isImportsConfigFile(path: string): boolean {
   return filenames.some((suffix) => path.endsWith("/" + suffix));
 }
 
-export function readImportsConfigFile(path: string): Config {
+export function readImportsConfigFile(path: string) {
   if (!isImportsConfigFile(path))
     throw Error(`Not an imports config file: ${path}`);
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires -- ESLint does not support async rules, we must use a sync require. Under the hood this file runs in CommonJS anyway.
   const requireResult = require(path);
-  const validationResult = validateConfig(requireResult);
-  if (!validationResult.valid)
-    throw Error(`Invalid imports config at ${path}: ${validationResult.error}`);
-  return validationResult.config;
+  return validateConfig(requireResult);
 }
