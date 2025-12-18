@@ -14,46 +14,59 @@ type Config = {
   whitelist: Record<string, string[]> & { allowByDefault?: boolean };
 };
 
-function validateConfig(config: object): asserts config is Config {
+function validateConfig(
+  config: object,
+): { valid: true; config: Config } | { valid: false; error: string } {
   if (typeof config !== "object" || config === null) {
-    throw Error(`Invalid imports config.`);
+    return { valid: false, error: `Invalid imports config.` };
   }
   if (
     "absoluteImportPrefix" in config &&
     typeof config.absoluteImportPrefix !== "string" &&
     config.absoluteImportPrefix !== true
   ) {
-    throw Error(
-      `Invalid imports config: absoluteImportPrefix must be a string or true.`,
-    );
+    return {
+      valid: false,
+      error: `Invalid imports config: absoluteImportPrefix must be a string or true.`,
+    };
   }
   if ("encapsulated" in config && typeof config.encapsulated !== "boolean")
-    throw Error(`Invalid imports config: encapsulated must be a boolean.`);
+    return {
+      valid: false,
+      error: `Invalid imports config: encapsulated must be a boolean.`,
+    };
   if ("whitelist" in config) {
     if (typeof config.whitelist !== "object" || config.whitelist === null)
-      throw Error(`Invalid imports config: whitelist must be an object.`);
+      return {
+        valid: false,
+        error: `Invalid imports config: whitelist must be an object.`,
+      };
     if (
       "allowByDefault" in config.whitelist &&
       typeof config.whitelist.allowByDefault !== "boolean"
     )
-      throw Error(
-        `Invalid imports config: whitelist.allowByDefault must be a boolean.`,
-      );
+      return {
+        valid: false,
+        error: `Invalid imports config: whitelist.allowByDefault must be a boolean.`,
+      };
     for (const [key, value] of Object.entries(config.whitelist)) {
       if (!Array.isArray(value)) {
-        throw Error(
-          `Invalid imports config: whitelist entry ${key} must be an array.`,
-        );
+        return {
+          valid: false,
+          error: `Invalid imports config: whitelist entry ${key} must be an array.`,
+        };
       }
       for (const entry of value) {
         if (typeof entry !== "string") {
-          throw Error(
-            `Invalid imports config: whitelist entry ${key} must be an array of strings.`,
-          );
+          return {
+            valid: false,
+            error: `Invalid imports config: whitelist entry ${key} must be an array of strings.`,
+          };
         }
       }
     }
   }
+  return { valid: true, config: config as Config };
 }
 
 export function getImportsConfigAt(directory: string): Config | undefined {
@@ -74,11 +87,9 @@ export function readImportsConfigFile(path: string): Config {
     throw Error(`Not an imports config file: ${path}`);
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires -- ESLint does not support async rules, we must use a sync require. Under the hood this file runs in CommonJS anyway.
-  const config = require(path);
-  try {
-    validateConfig(config);
-  } catch (e) {
-    throw Error(`Invalid imports config at ${path}`, { cause: e });
-  }
-  return config;
+  const requireResult = require(path);
+  const validationResult = validateConfig(requireResult);
+  if (!validationResult.valid)
+    throw Error(`Invalid imports config at ${path}: ${validationResult.error}`);
+  return validationResult.config;
 }
