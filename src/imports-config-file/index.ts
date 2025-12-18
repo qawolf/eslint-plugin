@@ -27,19 +27,19 @@ function validateConfig(
   ) {
     return {
       valid: false,
-      error: `Invalid imports config: absoluteImportPrefix must be a string or true.`,
+      error: `absoluteImportPrefix must be a string or true.`,
     };
   }
   if ("encapsulated" in config && typeof config.encapsulated !== "boolean")
     return {
       valid: false,
-      error: `Invalid imports config: encapsulated must be a boolean.`,
+      error: `encapsulated must be a boolean.`,
     };
   if ("whitelist" in config) {
     if (typeof config.whitelist !== "object" || config.whitelist === null)
       return {
         valid: false,
-        error: `Invalid imports config: whitelist must be an object.`,
+        error: `whitelist must be an object.`,
       };
     if (
       "allowByDefault" in config.whitelist &&
@@ -47,20 +47,20 @@ function validateConfig(
     )
       return {
         valid: false,
-        error: `Invalid imports config: whitelist.allowByDefault must be a boolean.`,
+        error: `whitelist.allowByDefault must be a boolean.`,
       };
     for (const [key, value] of Object.entries(config.whitelist)) {
       if (!Array.isArray(value)) {
         return {
           valid: false,
-          error: `Invalid imports config: whitelist entry ${key} must be an array.`,
+          error: `whitelist entry ${key} must be an array.`,
         };
       }
       for (const entry of value) {
         if (typeof entry !== "string") {
           return {
             valid: false,
-            error: `Invalid imports config: whitelist entry ${key} must be an array of strings.`,
+            error: `whitelist entry ${key} must be an array of strings.`,
           };
         }
       }

@@ -26,7 +26,7 @@ export default defineRule(function (context) {
             start: { line: 1, column: 0 },
             end: { line: 2, column: 0 },
           },
-          message: `Invalid imports config file: ${result.error}`,
+          message: result.error,
         });
         return;
       }
