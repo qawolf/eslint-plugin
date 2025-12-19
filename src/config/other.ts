@@ -73,6 +73,7 @@ export const otherRules = {
       checkLoops: false,
     },
   ],
+  "no-sequences": ["error", { allowInParentheses: false }],
   "no-throw-literal": "error",
 
   "n/no-unsupported-features/es-syntax": [
