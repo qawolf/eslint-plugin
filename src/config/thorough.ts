@@ -1,6 +1,11 @@
 import type { Linter } from "eslint";
 
 const enabled = (function () {
+  if (process.env.CI && process.env.THOROUGH_LINT === undefined)
+    throw Error(
+      "Please add THOROUGH_LINT=true in your calls to eslint in CI. This enables all the linting rules we expect to run.",
+    );
+
   const env = process.env.THOROUGH_LINT;
   if (env === "true" || env === "1") return true;
   if (env === "false" || env === "0" || env === undefined) return false;
