@@ -1,3 +1,8 @@
+# 18.0.0
+
+- no-floating-promises is stricter now.
+- Will detect if thorough linting is not configured in CI.
+
 # 17.0.0
 
 - Breaking: now requires Node 20.19.

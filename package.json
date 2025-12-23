@@ -55,5 +55,5 @@
     "verify": "npm run tsc:check && npm run lint && npm run test"
   },
   "type": "commonjs",
-  "version": "17.0.0"
+  "version": "18.0.0"
 }
