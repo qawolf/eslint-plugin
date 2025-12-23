@@ -2,9 +2,9 @@ import type { Linter } from "eslint";
 
 const enabled = (function () {
   const env = process.env.THOROUGH_LINT;
-  if (env && process.env.THOROUGH_LINT !== "true")
-    throw Error(`Unexpected value of THOROUGH_LINT: ${env}`);
-  return env === "true";
+  if (env === "true" || env === "1") return true;
+  if (env === "false" || env === "0" || env === undefined) return false;
+  throw Error(`Unexpected value of THOROUGH_LINT: ${env}`);
 })();
 
 export const overridesWhenThorough = (function () {
