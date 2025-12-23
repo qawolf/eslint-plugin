@@ -26,7 +26,7 @@ export const overridesWhenThorough = (function () {
       },
       rules: {
         "@typescript-eslint/await-thenable": "error",
-        "@qawolf/no-floating-promises": "error",
+        "@qawolf/no-floating-promises": ["error", { ignoreVoid: false }],
       },
     },
   ] satisfies Linter.Config["overrides"];
