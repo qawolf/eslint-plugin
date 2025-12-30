@@ -16,6 +16,7 @@
     "eslint-plugin-react-hooks": "^7.0.0",
     "eslint-plugin-react-server-components": "^1.2.0",
     "eslint-plugin-redos": "^4.5.0",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
