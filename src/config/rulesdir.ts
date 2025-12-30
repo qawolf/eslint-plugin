@@ -11,8 +11,10 @@ export function configureRulesDir(relativePath: string) {
       ? [rulesDirPlugin.RULES_DIR]
       : (rulesDirPlugin.RULES_DIR ?? []);
 
+  // RULES_DIR is evaluated relative to the current working directory,
+  // and in the IDEs we have no control over it.
   rulesDirPlugin.RULES_DIR = previousRulesDir.concat([
-    // Relative to the individual project’s root
+    // Product debt: relativePath is sometimes resolved in an incorrect directory
     relativePath,
   ]);
 }
