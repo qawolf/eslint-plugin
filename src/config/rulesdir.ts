@@ -1,3 +1,6 @@
+import { existsSync, lstatSync } from "fs";
+import { dirname, join } from "path";
+
 import rulesDirPlugin from "@qawolf/eslint-plugin-rulesdir";
 
 export function configureRulesDir(relativePath: string) {
@@ -11,10 +14,18 @@ export function configureRulesDir(relativePath: string) {
       ? [rulesDirPlugin.RULES_DIR]
       : (rulesDirPlugin.RULES_DIR ?? []);
 
-  // RULES_DIR is evaluated relative to the current working directory,
-  // and in the IDEs we have no control over it.
-  rulesDirPlugin.RULES_DIR = previousRulesDir.concat([
-    // Product debt: relativePath is sometimes resolved in an incorrect directory
-    relativePath,
-  ]);
+  // Synchronously walk up from cwd to root, adding rules dirs along the way.
+  // On every level, we look for the specified relative path.
+  let currentPath = process.cwd();
+  const newRulesDir = previousRulesDir.slice();
+  while (true) {
+    const fullPath = join(currentPath, relativePath);
+    if (existsSync(fullPath) && lstatSync(fullPath).isDirectory())
+      newRulesDir.push(fullPath);
+    const parentPath = dirname(currentPath);
+    if (parentPath === currentPath) break;
+    currentPath = parentPath;
+  }
+
+  rulesDirPlugin.RULES_DIR = newRulesDir;
 }
