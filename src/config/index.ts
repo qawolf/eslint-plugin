@@ -1,23 +1,13 @@
 import type { Linter } from "eslint";
-import rulesDirPlugin from "@qawolf/eslint-plugin-rulesdir";
 
 import { disabledRulesFromPresets } from "./disabled";
 import { importVerificationRules } from "./imports";
 import { formattingRules } from "./formatting";
 import { overrides } from "./overrides";
 import { otherRules } from "./other";
+import { configureRulesDir } from "./rulesdir";
 
-// Merge, not overwrite.
-// Otherwise in some setups the order of file loading is wrong and
-// we overwrite RULES_DIR configured elsewhere.
-const previousRulesDir =
-  typeof rulesDirPlugin.RULES_DIR === "string"
-    ? [rulesDirPlugin.RULES_DIR]
-    : (rulesDirPlugin.RULES_DIR ?? []);
-rulesDirPlugin.RULES_DIR = previousRulesDir.concat([
-  // Relative to the individual project’s root
-  ".eslint/custom-rules",
-]);
+configureRulesDir(".eslint/custom-rules");
 
 export const main = {
   env: {
