@@ -56,6 +56,25 @@ export const whitelist = {
 };
 ```
 
+## Custom rules
+
+`.eslint/custom-rules/foo.ts` or `.eslint/custom-rules/foo/index.ts` define a rule named `foo`. Enable that rule in your ESLint config with `"@qawolf/rulesdir/foo": "error"`.
+
+```ts
+import { defineRule } from "@qawolf/eslint-plugin";
+
+module.exports = defineRule(function (context) {
+  return {
+    Program(node) {
+      context.report({
+        message: "Do not create code files, create art instead.",
+        node,
+      });
+    },
+  };
+});
+```
+
 ---
 
 [QA Wolf](https://www.qawolf.com/) is a hybrid platform & service that helps software teams ship better software faster by taking QA completely off their plate.
