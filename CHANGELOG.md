@@ -1,3 +1,8 @@
+# 19.0.0
+
+- Breaking: custom rules must be uniquely named in a repository.
+- Custom rules now always load in the IDE across projects in a monorepo.
+
 # 18.0.0
 
 - no-floating-promises is stricter now.
