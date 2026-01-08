@@ -1,3 +1,8 @@
+# 20.0.0
+
+- Breaking: custom rules are now called local rules. In config and eslint-disable lines, please replace `@qawolf/rulesdir/` with `@qawolf/local/`.
+- Local rules now support even more monorepo setups.
+
 # 19.0.0
 
 - Breaking: custom rules must be uniquely named in a repository.
