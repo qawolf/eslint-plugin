@@ -75,10 +75,6 @@ module.exports = defineRule(function (context) {
 });
 ```
 
-### Unique rule names in monorepos
-
-Because of internal limitations, all custom rules in one monorepo must have unique names, even across different projects. If you have non-unique names, the plugin will crash at load time with a message vague explaining the non-uniqueness. Sorry for the inconvenience.
-
 ---
 
 [QA Wolf](https://www.qawolf.com/) is a hybrid platform & service that helps software teams ship better software faster by taking QA completely off their plate.

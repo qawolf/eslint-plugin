@@ -12,8 +12,9 @@ import restrictNames from "./restrict-names";
 import restrictNewError from "./restrict-new-error";
 import restrictReactNamespace from "./restrict-react-namespace";
 import restrictStopPropagation from "./restrict-stop-propagation";
+import { findCustomRules } from "./custom-rules";
 
-export const rules = {
+const ourRules = {
   "imports-config": importsConfig,
   "imports-config-valid": importsConfigValid,
   "imports-from-encapsulated": importsFromEncapsulated,
@@ -27,3 +28,10 @@ export const rules = {
   "no-floating-promises": noFloatingPromises,
   "no-forward-ref": noForwardRef,
 } satisfies Record<string, RuleDefinition>;
+
+const customRules = findCustomRules(".eslint/custom-rules");
+
+export const rules = {
+  ...ourRules,
+  ...customRules,
+} as Record<string, RuleDefinition>;

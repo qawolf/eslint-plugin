@@ -2,7 +2,14 @@ import { existsSync, lstatSync, readdirSync, readFileSync } from "fs";
 import { dirname, join } from "path";
 import { execSync } from "child_process";
 
-import rulesDirPlugin from "@qawolf/eslint-plugin-rulesdir";
+import { type RuleDefinition } from "../../eslint";
+
+import { extensions } from "./extensions";
+import { makeRuleProxy } from "./proxyRule";
+
+function ruleName(localName: string): string {
+  return `rulesdir/${localName}`;
+}
 
 function readPkgJson(
   path: string,
@@ -97,29 +104,42 @@ function findProjectDirs(): string[] {
   return dirs;
 }
 
-export function configureRulesDir(relativePath: string) {
-  if (relativePath[0] === "/") throw Error("path must be relative");
+export function findCustomRules(
+  relativePath: string,
+): Record<string, RuleDefinition> {
+  const rules: Record<string, RuleDefinition> = {};
+  for (const projectDir of findProjectDirs()) {
+    // Read directory relativePath, and find all files foo.ts and foo/index.ts to be rules:
+    const absPath = join(projectDir, relativePath);
+    if (!existsSync(absPath)) continue;
 
-  // Merge, not overwrite.
-  // Otherwise in some setups the order of file loading is wrong and
-  // we overwrite RULES_DIR configured elsewhere.
-  const previousRulesDir =
-    typeof rulesDirPlugin.RULES_DIR === "string"
-      ? [rulesDirPlugin.RULES_DIR]
-      : (rulesDirPlugin.RULES_DIR ?? []);
+    for (const entry of readdirSync(absPath)) {
+      const absEntryPath = join(absPath, entry);
+      const stat = lstatSync(absEntryPath);
+      if (stat.isDirectory()) {
+        for (const ext of extensions) {
+          const indexPath = join(absEntryPath, `index${ext}`);
+          if (existsSync(indexPath) && !indexPath.endsWith(".d.ts")) {
+            rules[ruleName(entry)] = makeRuleProxy({
+              customRulesDir: relativePath,
+              ruleName: entry,
+            });
+            break;
+          }
+        }
+      } else if (stat.isFile()) {
+        if (
+          extensions.some((ext) => entry.endsWith(ext)) &&
+          !absEntryPath.endsWith(".d.ts")
+        ) {
+          rules[ruleName(entry.slice(0, -3))] = makeRuleProxy({
+            customRulesDir: relativePath,
+            ruleName: entry.slice(0, -3),
+          });
+        }
+      }
+    }
+  }
 
-  rulesDirPlugin.RULES_DIR = [
-    ...previousRulesDir,
-    // Load rules for all projects at once, so that the IDE can find them
-    // without needing to reload the IDE for each project separately.
-    ...findProjectDirs().map((dir) => join(dir, relativePath)),
-  ];
-
-  require("ts-node").register({
-    compilerOptions: {
-      module: "commonjs",
-      moduleResolution: "node",
-    },
-    transpileOnly: true,
-  });
+  return rules;
 }

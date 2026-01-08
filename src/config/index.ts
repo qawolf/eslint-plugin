@@ -5,9 +5,6 @@ import { importVerificationRules } from "./imports";
 import { formattingRules } from "./formatting";
 import { overrides } from "./overrides";
 import { otherRules } from "./other";
-import { configureRulesDir } from "./rulesdir";
-
-configureRulesDir(".eslint/custom-rules");
 
 export const main = {
   env: {
@@ -38,7 +35,6 @@ export const main = {
   },
   plugins: [
     "@denis-sokolov",
-    "@qawolf/eslint-plugin-rulesdir",
     "@typescript-eslint",
     "github",
     "jest",
