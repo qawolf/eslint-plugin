@@ -5,7 +5,7 @@ import { type CheckResult, type ImportDetails } from "../types";
 import { makeCheckingFunction } from "./check";
 
 /**
- * Define our custom rules on which modules are allowed
+ * Define our local rules on which modules are allowed
  * to import which other modules.
  *
  * The importing module is the module in which the import statement is located. Importing modules and imported app modules are module paths relative to the app root, e.g. “components/Document/Env” or “pureLib/json”.

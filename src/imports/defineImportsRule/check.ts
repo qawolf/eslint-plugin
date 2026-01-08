@@ -154,7 +154,7 @@ export function makeCheckingFunction({
       fix,
       forbiddenName,
       forbiddenNames,
-      message = "Importing this module here is restricted by our custom linting rules",
+      message = "Importing this module here is restricted by our local linting rules",
     } = returned;
     if (allowed) return;
     if (forbiddenName || forbiddenNames) {

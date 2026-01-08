@@ -8,7 +8,7 @@ import { extensions } from "./extensions";
 import { makeRuleProxy } from "./proxyRule";
 
 function ruleName(localName: string): string {
-  return `rulesdir/${localName}`;
+  return `local/${localName}`;
 }
 
 function readPkgJson(
@@ -30,7 +30,7 @@ function readPkgJson(
     return pkg;
   } catch (err) {
     console.warn(
-      `Failed to parse JSON in ${path}, this might make custom linting rules not work correctly in the IDE.`,
+      `Failed to parse JSON in ${path}, this might make local linting rules not work correctly in the IDE.`,
     );
     console.warn(err);
     return "syntax-issue";
@@ -88,7 +88,7 @@ function findProjectDirs(): string[] {
       // Only support simple patterns like "packages/*"
       if (!pattern.endsWith("/*")) {
         console.warn(
-          `Unsupported workspace pattern "${pattern}" in ${pkgPath}. Only patterns ending with /* are supported for ESLint custom rules loading.`,
+          `Unsupported workspace pattern "${pattern}" in ${pkgPath}. Only patterns ending with /* are supported for ESLint local rules loading.`,
         );
         continue;
       }
@@ -104,7 +104,7 @@ function findProjectDirs(): string[] {
   return dirs;
 }
 
-export function findCustomRules(
+export function findLocalRules(
   relativePath: string,
 ): Record<string, RuleDefinition> {
   const rules: Record<string, RuleDefinition> = {};
@@ -121,7 +121,7 @@ export function findCustomRules(
           const indexPath = join(absEntryPath, `index${ext}`);
           if (existsSync(indexPath) && !indexPath.endsWith(".d.ts")) {
             rules[ruleName(entry)] = makeRuleProxy({
-              customRulesDir: relativePath,
+              localRulesDir: relativePath,
               ruleName: entry,
             });
             break;
@@ -133,7 +133,7 @@ export function findCustomRules(
           !absEntryPath.endsWith(".d.ts")
         ) {
           rules[ruleName(entry.slice(0, -3))] = makeRuleProxy({
-            customRulesDir: relativePath,
+            localRulesDir: relativePath,
             ruleName: entry.slice(0, -3),
           });
         }

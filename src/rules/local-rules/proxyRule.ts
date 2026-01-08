@@ -24,18 +24,18 @@ function registerTsNode() {
 }
 
 // We define a rule proxy to postpone the `require` call until rule is used
-// Otherwise we get a circular dependency problem: this file loads custom rules on initialization, but those import from this very plugin to get defineRule.
+// Otherwise we get a circular dependency problem: this file loads local rules on initialization, but those import from this very plugin to get defineRule.
 export function makeRuleProxy({
-  customRulesDir,
+  localRulesDir,
   ruleName,
 }: {
-  customRulesDir: string;
+  localRulesDir: string;
   ruleName: string;
 }): RuleDefinition {
   return defineRule((ctx) => {
     let dir = dirname(ctx.filename);
     while (true) {
-      const possibleRuleModule = join(dir, customRulesDir, ruleName);
+      const possibleRuleModule = join(dir, localRulesDir, ruleName);
       if (moduleExists(possibleRuleModule)) {
         registerTsNode();
         const loadedRule: RuleDefinition = require(possibleRuleModule);

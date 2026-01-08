@@ -56,9 +56,9 @@ export const whitelist = {
 };
 ```
 
-## Custom rules
+## Local rules
 
-`.eslint/custom-rules/foo.ts` or `.eslint/custom-rules/foo/index.ts` define a rule named `foo`. Enable that rule in your ESLint config with `"@qawolf/rulesdir/foo": "error"`.
+`.eslint/local-rules/foo.ts` or `.eslint/local-rules/foo/index.ts` define a rule named `foo`. Enable that rule in your ESLint config with `"@qawolf/local/foo": "error"`.
 
 ```ts
 import { defineRule } from "@qawolf/eslint-plugin";
