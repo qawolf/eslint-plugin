@@ -34,6 +34,13 @@ Use this in your project:
 
 Create `.imports.js/ts/cjs/cts` files anywhere in your codebase to configure how the code in those directories needs to be imported. If using this in an ESM project (`type` is `"module"` in `package.json`), then the extensions must be `.cjs` or `.cts`.
 
+If the directory is a standalone module and others should not import its implementation details, export an `encapsulated` variable:
+
+```ts
+// Imports from the files and directories inside the module will not be allowed.
+export const encapsulated = true;
+```
+
 If the directory in question contains somewhat independent code modules underneath, export an `absoluteImportPrefix` variable to ensure that the subdirectories are not imported with relative paths:
 
 ```ts
