@@ -1,6 +1,6 @@
 # 20.1.0
 
-- Added `childrenEncapsulated` option.
+- Added `encapsulatedChildren` option.
 
 # 20.0.0
 
