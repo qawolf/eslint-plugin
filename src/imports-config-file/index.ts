@@ -10,6 +10,7 @@ const filenames = [
 
 type Config = {
   absoluteImportPrefix?: string | true;
+  encapsulatedChildren?: boolean;
   encapsulated?: boolean;
   whitelist: Record<string, string[]> & { allowByDefault?: boolean };
 };
@@ -30,6 +31,14 @@ function validateConfig(
       error: `absoluteImportPrefix must be a string or true.`,
     };
   }
+  if (
+    "encapsulatedChildren" in config &&
+    typeof config.encapsulatedChildren !== "boolean"
+  )
+    return {
+      valid: false,
+      error: `encapsulatedChildren must be a boolean.`,
+    };
   if ("encapsulated" in config && typeof config.encapsulated !== "boolean")
     return {
       valid: false,

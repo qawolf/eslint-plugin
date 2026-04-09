@@ -39,6 +39,9 @@ If the directory is a standalone module and others should not import its impleme
 ```ts
 // Imports from the files and directories inside the module will not be allowed.
 export const encapsulated = true;
+
+// Or in a parent directory:
+export const encapsulatedChildren = true;
 ```
 
 If the directory in question contains somewhat independent code modules underneath, export an `absoluteImportPrefix` variable to ensure that the subdirectories are not imported with relative paths:

@@ -1,3 +1,7 @@
+# 20.1.0
+
+- Added `childrenEncapsulated` option.
+
 # 20.0.0
 
 - Breaking: custom rules are now called local rules. In config and eslint-disable lines, please replace `@qawolf/rulesdir/` with `@qawolf/local/`.
