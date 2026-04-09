@@ -23,6 +23,9 @@ export const overrides = [
 
       // Allow test files to use dev dependencies
       "n/no-unpublished-import": "off",
+
+      // Allow test files to use process.env
+      "n/no-process-env": "off",
     },
   },
   {
