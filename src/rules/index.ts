@@ -8,6 +8,7 @@ import maxLines from "./max-lines";
 import noFloatingPromises from "./no-floating-promises";
 import noForwardRef from "./no-forward-ref";
 import noUtils from "./no-utils";
+import publicPackagePrivateImports from "./public-package-private-imports";
 import restrictNames from "./restrict-names";
 import restrictNewError from "./restrict-new-error";
 import restrictReactNamespace from "./restrict-react-namespace";
@@ -21,6 +22,7 @@ const ourRules = {
   "imports-prefix": importsPrefix,
   "max-lines": maxLines,
   "no-utils": noUtils,
+  "public-package-private-imports": publicPackagePrivateImports,
   "restrict-names": restrictNames,
   "restrict-new-error": restrictNewError,
   "restrict-react-namespace": restrictReactNamespace,
