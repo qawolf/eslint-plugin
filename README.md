@@ -42,6 +42,9 @@ export const encapsulated = true;
 
 // Or in a parent directory:
 export const encapsulatedChildren = true;
+
+// Or in a grand-parent directory:
+export const encapsulatedGrandChildren = true;
 ```
 
 If the directory in question contains somewhat independent code modules underneath, export an `absoluteImportPrefix` variable to ensure that the subdirectories are not imported with relative paths:

@@ -38,7 +38,12 @@ export default defineImportsRule(function (details) {
     const modulePath = projectDirectory + "/" + moduleToCheck;
     const config = getImportsConfigAt(modulePath);
     const parentConfig = getImportsConfigAt(dirname(modulePath));
-    if (config?.encapsulated || parentConfig?.encapsulatedChildren) {
+    const grandParentConfig = getImportsConfigAt(dirname(dirname(modulePath)));
+    if (
+      config?.encapsulated ||
+      parentConfig?.encapsulatedChildren ||
+      grandParentConfig?.encapsulatedGrandChildren
+    ) {
       return {
         allowed: false,
         message: `Don’t import from deeper than ${moduleToCheck}. ${moduleToCheck} is an  encapsulated boundary, import from it instead. You may need to add an export for what you need to ${moduleToCheck}/index file.`,
