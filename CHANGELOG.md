@@ -1,3 +1,7 @@
+# 20.2.0
+
+- Added `encapsulatedGrandChildren` option.
+
 # 20.1.0
 
 - Added `encapsulatedChildren` option.
