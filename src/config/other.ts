@@ -105,8 +105,6 @@ export const otherRules = {
   // Upgrade from a warning in the recommended config
   "react-hooks/unsupported-syntax": "error",
 
-  "react-server-components/use-client": "error",
-
   "redos/no-vulnerable": [
     "error",
     {
