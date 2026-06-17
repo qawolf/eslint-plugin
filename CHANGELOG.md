@@ -1,3 +1,7 @@
+# 20.2.1
+
+- Removed `react-server-components/use-client` rule. The use client directive should not be automatically added all over, it should signify only the consciously chosen client boundaries.
+
 # 20.2.0
 
 - Added `encapsulatedGrandChildren` option.
