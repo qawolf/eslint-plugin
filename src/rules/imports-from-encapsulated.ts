@@ -18,6 +18,8 @@ export default defineImportsRule(function (details) {
   const { imported, projectDirectory } = details;
   if (imported.type !== "relative") return { allowed: true };
 
+  if (imported.verbatim === ".") return { allowed: true };
+
   const { boundary } = imported;
 
   let moduleToCheck = imported.module;
