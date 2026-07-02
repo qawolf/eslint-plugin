@@ -17,22 +17,23 @@ export const overridesWhenThorough = (function () {
 
   return [
     {
-      files: ["*.*"],
-      rules: {
+      linterOptions: {
         // This rule must only be enabled in thorough mode, because of false positives
         // on the disable comments in the code that refer to thorough rules.
-        "@eslint-community/eslint-comments/no-unused-disable": "error",
+        reportUnusedDisableDirectives: "error",
       },
     },
     {
-      files: ["*.ts", "*.tsx"],
-      parserOptions: {
-        projectService: true,
+      files: ["**/*.ts", "**/*.tsx"],
+      languageOptions: {
+        parserOptions: {
+          projectService: true,
+        },
       },
       rules: {
         "@typescript-eslint/await-thenable": "error",
         "@qawolf/no-floating-promises": ["error", { ignoreVoid: false }],
       },
     },
-  ] satisfies Linter.Config["overrides"];
+  ] satisfies Linter.Config[];
 })();

@@ -12,7 +12,6 @@ import restrictNames from "./restrict-names";
 import restrictNewError from "./restrict-new-error";
 import restrictReactNamespace from "./restrict-react-namespace";
 import restrictStopPropagation from "./restrict-stop-propagation";
-import { findLocalRules } from "./local-rules";
 
 const ourRules = {
   "imports-config": importsConfig,
@@ -29,9 +28,6 @@ const ourRules = {
   "no-forward-ref": noForwardRef,
 } satisfies Record<string, RuleDefinition>;
 
-const localRules = findLocalRules(".eslint/local-rules");
-
 export const rules = {
   ...ourRules,
-  ...localRules,
 } as Record<string, RuleDefinition>;

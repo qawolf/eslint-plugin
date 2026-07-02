@@ -2,6 +2,7 @@ import {
   valid as validOriginal,
   invalid as invalidOriginal,
   // Slight technical debt, we can build our own tester at some point
+  // This is why we need the @typescript-eslint/rule-tester dependency
 } from "@denis-sokolov/eslint-plugin/dist/tester";
 import { type RuleDefinition } from "../../eslint";
 

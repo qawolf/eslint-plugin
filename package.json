@@ -1,7 +1,8 @@
 {
   "dependencies": {
-    "@denis-sokolov/eslint-plugin": "^18.1.1",
+    "@denis-sokolov/eslint-plugin": "^19.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
+    "@eslint/compat": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^8.46.0",
     "@typescript-eslint/parser": "^8.46.0",
     "@typescript-eslint/utils": "^8.46.0",
@@ -23,8 +24,9 @@
     "@tsconfig/strictest": "^2.0.6",
     "@types/eslint": "^8.56.12",
     "@types/node": "^22.18.9",
+    "@typescript-eslint/rule-tester": "^8.62.1",
     "ava": "^6.4.1",
-    "eslint": "^8.57.1",
+    "eslint": "^9.39.4",
     "prettier": "^3.6.2",
     "publint": "^0.3.14",
     "tsx": "^4.20.6",
@@ -37,7 +39,7 @@
   "main": "dist/index.js",
   "name": "@qawolf/eslint-plugin",
   "peerDependencies": {
-    "eslint": "^8.0.0"
+    "eslint": "^9.0.0"
   },
   "prettier": {},
   "repository": "github:qawolf/eslint-plugin",

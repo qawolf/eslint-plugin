@@ -5,16 +5,20 @@ Use this in your project:
 1. Install the plugin and ESLint:
 
    ```sh
-   npm install --save-dev @qawolf/eslint-plugin eslint@8
+   npm install --save-dev @qawolf/eslint-plugin eslint@9
    ```
 
-2. Create an .eslintrc.js file:
+2. Create an eslint.config.mjs file:
 
    ```js
-   module.exports = {
-     extends: ["plugin:@qawolf/main"],
-     plugins: ["@qawolf"],
-   };
+   import qawolf from "@qawolf/eslint-plugin";
+   import { defineConfig } from "eslint/config";
+
+   export default defineConfig([
+     {
+       extends: qawolf.configs.main,
+     },
+   ]);
    ```
 
 3. Add linting scripts to your package.json:

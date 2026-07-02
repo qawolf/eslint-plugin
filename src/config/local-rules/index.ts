@@ -7,10 +7,6 @@ import { type RuleDefinition } from "../../eslint";
 import { extensions } from "./extensions";
 import { makeRuleProxy } from "./proxyRule";
 
-function ruleName(localName: string): string {
-  return `local/${localName}`;
-}
-
 function readPkgJson(
   path: string,
 ): { workspaces?: string[] } | "no-file" | "syntax-issue" {
@@ -120,7 +116,7 @@ export function findLocalRules(
         for (const ext of extensions) {
           const indexPath = join(absEntryPath, `index${ext}`);
           if (existsSync(indexPath) && !indexPath.endsWith(".d.ts")) {
-            rules[ruleName(entry)] = makeRuleProxy({
+            rules[entry] = makeRuleProxy({
               localRulesDir: relativePath,
               ruleName: entry,
             });
@@ -132,7 +128,7 @@ export function findLocalRules(
           extensions.some((ext) => entry.endsWith(ext)) &&
           !absEntryPath.endsWith(".d.ts")
         ) {
-          rules[ruleName(entry.slice(0, -3))] = makeRuleProxy({
+          rules[entry.slice(0, -3)] = makeRuleProxy({
             localRulesDir: relativePath,
             ruleName: entry.slice(0, -3),
           });

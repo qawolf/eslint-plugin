@@ -8,11 +8,11 @@ export const overrides = [
   ...overridesWhenThorough,
   {
     files: [
-      "*.test.ts",
-      "*.test.tsx",
-      "*.type-test.ts",
-      "*.type-test.tsx",
-      "*/test/*",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.type-test.ts",
+      "**/*.type-test.tsx",
+      "**/test/*",
     ],
     rules: {
       // Unit tests validate their results and dynamic values,
@@ -26,7 +26,7 @@ export const overrides = [
     },
   },
   {
-    files: ["*.d.ts"],
+    files: ["**/*.d.ts"],
     rules: {
       // `interface` keyword is needed for declaration merging, when amending 3rd-party types
       "@typescript-eslint/consistent-type-definitions": "off",
@@ -45,7 +45,7 @@ export const overrides = [
     },
   },
   {
-    files: ["jest.config.ts"],
+    files: ["**/jest.config.ts"],
     rules: {
       // Jest config API requires us to use default exports
       "no-restricted-syntax": [
@@ -56,4 +56,22 @@ export const overrides = [
       ],
     },
   },
-] satisfies Linter.Config["overrides"];
+  {
+    files: ["**/eslint.config.mjs"],
+    rules: {
+      // ESLint config API requires us to use default exports
+      "no-restricted-syntax": [
+        "error",
+        ...restrictedSyntaxRules.filter(
+          ({ selector }) => selector !== "ExportDefaultDeclaration",
+        ),
+      ],
+    },
+  },
+  {
+    files: ["**/*.json"],
+    rules: {
+      "@qawolf/max-lines": "off",
+    },
+  },
+] satisfies Linter.Config[];
