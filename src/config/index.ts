@@ -12,9 +12,9 @@ export const main = {
   },
   extends: [
     "eslint:recommended",
+    "plugin:@eslint-community/eslint-comments/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:eslint-comments/recommended",
     "plugin:jest/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",

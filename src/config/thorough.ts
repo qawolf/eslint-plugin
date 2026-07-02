@@ -21,7 +21,7 @@ export const overridesWhenThorough = (function () {
       rules: {
         // This rule must only be enabled in thorough mode, because of false positives
         // on the disable comments in the code that refer to thorough rules.
-        "eslint-comments/no-unused-disable": "error",
+        "@eslint-community/eslint-comments/no-unused-disable": "error",
       },
     },
     {

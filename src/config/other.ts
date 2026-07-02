@@ -7,6 +7,15 @@ export const otherRules = {
   "@denis-sokolov/no-single-letter-generic-types": "error",
   "@denis-sokolov/no-todos": "error",
 
+  "@eslint-community/eslint-comments/disable-enable-pair": [
+    "error",
+    { allowWholeFile: true },
+  ],
+  "@eslint-community/eslint-comments/require-description": [
+    "error",
+    { ignore: ["eslint-enable"] },
+  ],
+
   "@qawolf/no-forward-ref": "error",
   "@qawolf/no-utils": "error",
   "@qawolf/restrict-names": "error",
@@ -34,12 +43,6 @@ export const otherRules = {
   ],
 
   eqeqeq: ["error", "always", { null: "ignore" }],
-
-  "eslint-comments/disable-enable-pair": ["error", { allowWholeFile: true }],
-  "eslint-comments/require-description": [
-    "error",
-    { ignore: ["eslint-enable"] },
-  ],
 
   "github/a11y-aria-label-is-well-formatted": "error",
   "github/async-currenttarget": "error",
