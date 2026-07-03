@@ -13,6 +13,8 @@ import { otherRules } from "./other";
 
 import { findLocalRules } from "./local-rules";
 
+export { restrictedSyntaxRules } from "./restricted-syntax";
+
 export const main = defineConfig([
   {
     extends: [

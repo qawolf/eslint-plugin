@@ -2,6 +2,7 @@ import { main } from "./config";
 import { rules } from "./rules";
 import { plugin } from "./plugin-object";
 
+export { restrictedSyntaxRules } from "./config";
 export * from "./eslint";
 export * from "./imports";
 
