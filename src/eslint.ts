@@ -5,7 +5,7 @@ import {
 } from "@typescript-eslint/utils";
 import { type Rule } from "eslint";
 
-export { AST };
+export type { AST };
 export type Node = AST.Node;
 
 type RealContext = Parameters<
