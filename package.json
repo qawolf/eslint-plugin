@@ -35,8 +35,16 @@
   "engines": {
     "node": ">=22"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*"
+  ],
   "license": "ISC",
-  "main": "dist/index.js",
   "name": "@qawolf/eslint-plugin",
   "peerDependencies": {
     "eslint": "^9.0.0"
