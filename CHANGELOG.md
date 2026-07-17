@@ -1,3 +1,8 @@
+# 21.0.0
+
+- Breaking: switch to ESLint 9 and flat configs.
+- Breaking: import using `import { plugin } from "@qawolf/eslint-plugin"` instead of using the default.
+
 # 20.2.1
 
 - Removed `react-server-components/use-client` rule. The use client directive should not be automatically added all over, it should signify only the consciously chosen client boundaries.
