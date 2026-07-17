@@ -12,4 +12,4 @@ export * from "./imports";
 plugin.configs = { main };
 plugin.rules = rules as any;
 
-export default plugin;
+export { plugin };
